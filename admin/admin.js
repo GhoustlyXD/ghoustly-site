@@ -12,6 +12,7 @@ let contentSha = '';
 let originalsEnabled = false;
 let tab = 'works';
 let busy = '';
+let processing = 0; // images being converted right now
 const pending = new Map(); // path -> { blob, url }   new files not yet published
 const pendingOriginals = new Map(); // path -> blob (private repo)
 
@@ -92,11 +93,27 @@ async function load() {
 }
 
 // ---------- shell ----------
+let topEl = null;
+// Refresh only the top bar (status, buttons). Used while saving so the page you are editing is left alone.
+function renderTop() {
+  if (!topEl || !topEl.isConnected) return render();
+  const next = buildTop();
+  topEl.replaceWith(next); topEl = next;
+}
+function setBusy(msg) { busy = msg; renderTop(); }
+
 function render() {
+  topEl = buildTop();
+  const main = h('main');
+  ({ works: viewWorks, site: viewSite, wip: viewWip, proof: viewProof, history: viewHistory })[tab](main);
+  app.replaceChildren(topEl, main);
+}
+
+function buildTop() {
   const s = content.site;
-  const st = busy ? 'busy' : dirty() ? 'dirty' : '';
-  const statusText = busy || (dirty() ? 'Cambios sin publicar' : 'Todo publicado');
-  const slot = (d) => () => { s.slotsFilled = Math.max(0, Math.min(Number(s.slotsTotal) || 0, (Number(s.slotsFilled) || 0) + d)); render(); };
+  const st = busy || processing ? 'busy' : dirty() ? 'dirty' : '';
+  const statusText = busy || (processing ? 'Procesando imagen…' : dirty() ? 'Cambios sin publicar' : 'Todo publicado');
+  const slot = (d) => () => { s.slotsFilled = Math.max(0, Math.min(Number(s.slotsTotal) || 0, (Number(s.slotsFilled) || 0) + d)); renderTop(); };
   const top = h('div', { class: 'top' },
     h('div', { class: 'top-in' },
       h('span', { class: 'brand' }, 'GHOUSTLY ', h('span', {}, '3D'), ' · Panel'),
@@ -108,14 +125,13 @@ function render() {
           h('button', { type: 'button', 'aria-label': 'Una plaza más', onclick: slot(1) }, '+')),
         h('a', { class: 'btn', href: BASE, target: '_blank', rel: 'noopener' }, 'Ver web ↗'),
         h('button', { class: 'btn', type: 'button', onclick: openPreview }, 'Vista previa'),
-        h('button', { class: 'btn primary', type: 'button', disabled: !!busy || !dirty(), onclick: publish }, 'Publicar'))),
+        h('button', { class: 'btn primary', type: 'button', disabled: !!busy || processing > 0 || !dirty(), onclick: publish }, 'Publicar'))),
     h('nav', { class: 'tabs', role: 'tablist' },
       ...[['works', 'Trabajos'], ['site', 'Portada'], ['wip', 'WIP'], ['proof', 'Clientes y reseñas'], ['history', 'Historial']].map(([id, label]) =>
         h('button', { role: 'tab', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, label))));
-  const main = h('main');
-  ({ works: viewWorks, site: viewSite, wip: viewWip, proof: viewProof, history: viewHistory })[tab](main);
-  app.replaceChildren(top, main);
+  return top;
 }
+document.addEventListener('input', () => { if (content && !busy) renderTop(); });
 window.addEventListener('beforeunload', (e) => { if (content && dirty()) { e.preventDefault(); e.returnValue = ''; } });
 
 // ---------- Trabajos ----------
@@ -353,7 +369,7 @@ const toBlob = (c, q) => new Promise((res, rej) => c.toBlob((b) => (b ? res(b) :
 
 // project = null for WIP images (no watermark, no original kept)
 async function addImage(file, project) {
-  busy = 'Procesando imagen…'; render();
+  processing++; renderTop();
   try {
     const wm = !!project?.watermark;
     const r = await processImage(file, wm);
@@ -366,13 +382,26 @@ async function addImage(file, project) {
     if (project) {
       entry.wm = wm;
       if (originalsEnabled) {
-        const ext = (file.name.split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
-        entry.orig = `originals/${project.id}/${key}.${ext}`;
-        pendingOriginals.set(entry.orig, file);
+        const orig = await compressOriginal(file);
+        entry.orig = `originals/${project.id}/${key}.${orig.ext}`;
+        pendingOriginals.set(entry.orig, orig.blob);
       }
     }
     return entry;
-  } finally { busy = ''; }
+  } finally { processing--; renderTop(); }
+}
+
+// Originals are kept at full resolution as near-lossless WebP (95%): same look, 5-10x lighter than PNG.
+async function compressOriginal(file) {
+  try {
+    const bmp = await createImageBitmap(file);
+    const c = canvas(bmp.width, bmp.height);
+    c.getContext('2d').drawImage(bmp, 0, 0);
+    const blob = await toBlob(c, 0.95);
+    if (blob.size < file.size) return { blob, ext: 'webp' };
+  } catch (e) { /* fall back to the file as it is */ }
+  const ext = (file.name.split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 5) || 'png';
+  return { blob: file, ext: ext.length >= 2 ? ext : 'png' };
 }
 
 // When a project's watermark setting changed, rebuild its images from the stored originals.
@@ -384,7 +413,7 @@ async function applyWatermarkChanges() {
         const im = p[key][i];
         if (im.wm === undefined || im.wm === !!p.watermark) continue; // undefined = imported image, left as it is
         if (!im.orig) { skipped++; continue; }
-        busy = 'Aplicando marca de agua…'; render();
+        setBusy('Aplicando marca de agua…');
         const src = pendingOriginals.get(im.orig) || (await api('/original?path=' + encodeURIComponent(im.orig)));
         const r = await processImage(src, !!p.watermark);
         const k = uid();
@@ -501,45 +530,55 @@ function usedPaths(c) {
 }
 
 async function publish() {
+  if (busy || processing) return;
   for (const p of content.projects) { if (!p.title?.trim()) p.title = 'Untitled'; if (!p.slug) p.slug = uniqueSlug(p.title, p); }
   try {
     const skipped = await applyWatermarkChanges();
     if (skipped) toast(`${skipped} imágenes antiguas no tienen original guardado: su marca de agua no se puede cambiar.`, 6000);
-    const used = usedPaths(content);
+    // Publish a snapshot: anything you change from now on stays as "Cambios sin publicar" for next time.
+    const snapshot = clean(content);
+    const used = usedPaths(snapshot);
+    const origs = [...pendingOriginals.keys()].filter((path) => used.has(path));
+    const files = [...pending.keys()].filter((path) => used.has(path));
 
-    // 1) originals → private repo (one by one, they can be big)
-    for (const [path, blob] of pendingOriginals) {
-      if (!used.has(path)) continue;
-      busy = 'Guardando originales…'; render();
-      await api('/original', { method: 'POST', body: JSON.stringify({ path, data: await toB64(blob) }) });
-      pendingOriginals.delete(path);
-    }
+    // 1) originals → private repo, 3 at a time
+    let done = 0;
+    const queue = [...origs];
+    const worker = async () => {
+      while (queue.length) {
+        const path = queue.shift();
+        setBusy(`Guardando originales ${done + 1}/${origs.length}…`);
+        await api('/original', { method: 'POST', body: JSON.stringify({ path, data: await toB64(pendingOriginals.get(path)) }) });
+        pendingOriginals.delete(path); done++;
+      }
+    };
+    await Promise.all([worker(), worker(), worker()]);
 
-    // 2) images → public repo, in batches; the last request also carries content.json
-    const files = [];
-    for (const [path, f] of pending) if (used.has(path)) files.push({ path, data: await toB64(f.blob) });
+    // 2) web images → public repo, in batches; the last request also carries content.json
     const batches = [[]]; let size = 0;
-    for (const f of files) {
+    for (const path of files) {
+      const f = { path, data: await toB64(pending.get(path).blob) };
       if (size + f.data.length > MAX_BATCH && batches.at(-1).length) { batches.push([]); size = 0; }
       batches.at(-1).push(f); size += f.data.length;
     }
     for (let i = 0; i < batches.length; i++) {
       const last = i === batches.length - 1;
-      busy = batches.length > 1 ? `Publicando ${i + 1}/${batches.length}…` : 'Publicando…'; render();
+      setBusy(batches.length > 1 ? `Publicando ${i + 1}/${batches.length}…` : 'Publicando…');
       const r = await api('/publish', { method: 'POST', body: JSON.stringify({
-        files: batches[i], contentSha, content: last ? clean(content) : undefined,
+        files: batches[i], contentSha, content: last ? snapshot : undefined,
         message: last ? 'Update portfolio from admin panel' : 'Upload images from admin panel',
       }) });
       if (r.contentSha) contentSha = r.contentSha;
     }
-    pending.clear();
-    content.projects.forEach((p) => delete p._new);
-    savedJson = JSON.stringify(clean(content));
-    busy = ''; render();
-    toast('¡Publicado! Los cambios se verán en la web en ~1 minuto.');
+    files.forEach((path) => pending.delete(path));
+    const ids = new Set(snapshot.projects.map((p) => p.id));
+    content.projects.forEach((p) => { if (ids.has(p.id)) delete p._new; });
+    savedJson = JSON.stringify(snapshot);
+    setBusy('');
+    toast(dirty() ? '¡Publicado! Lo que cambiaste mientras guardaba queda pendiente para la próxima vez.' : '¡Publicado! Los cambios se verán en la web en ~1 minuto.', 5000);
   } catch (e) {
-    busy = ''; render();
-    if (e.message !== 'unauthorized') toast('No se pudo publicar: ' + e.message, 6000);
+    setBusy('');
+    if (e.message !== 'unauthorized') toast('No se pudo publicar: ' + e.message + ' — tus cambios siguen aquí, prueba otra vez.', 7000);
   }
 }
 

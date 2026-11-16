@@ -85,6 +85,7 @@ await writeFile(join(dist, 'admin/config.js'), `window.GHOUSTLY_CONFIG = { worke
 
 http.createServer(async (req, res) => {
   const chunks = []; for await (const c of req) chunks.push(c);
+  if (process.env.SLOW && req.method === 'POST' && req.url !== '/login') await new Promise((r) => setTimeout(r, Number(process.env.SLOW)));
   const request = new Request(API + req.url, { method: req.method, headers: req.headers, body: ['GET', 'HEAD', 'OPTIONS'].includes(req.method) ? undefined : Buffer.concat(chunks) });
   const out = await worker.fetch(request, env);
   res.writeHead(out.status, Object.fromEntries(out.headers));
