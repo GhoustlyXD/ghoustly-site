@@ -85,6 +85,7 @@ await writeFile(join(dist, 'admin/config.js'), `window.GHOUSTLY_CONFIG = { worke
 
 http.createServer(async (req, res) => {
   const chunks = []; for await (const c of req) chunks.push(c);
+  if (req.url === '/original' && Number(process.env.FAIL_ORIGINALS) > 0) { process.env.FAIL_ORIGINALS = String(Number(process.env.FAIL_ORIGINALS) - 1); res.writeHead(502, { 'content-type': 'application/json', 'access-control-allow-origin': SITE }); res.end('{"error":"GitHub 409: simulated conflict"}'); return; }
   if (process.env.SLOW && req.method === 'POST' && req.url !== '/login') await new Promise((r) => setTimeout(r, Number(process.env.SLOW)));
   const request = new Request(API + req.url, { method: req.method, headers: req.headers, body: ['GET', 'HEAD', 'OPTIONS'].includes(req.method) ? undefined : Buffer.concat(chunks) });
   const out = await worker.fetch(request, env);

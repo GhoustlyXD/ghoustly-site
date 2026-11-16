@@ -48,6 +48,7 @@ const clean = (c) => JSON.parse(JSON.stringify(c, (k, v) => (k.startsWith('_') ?
 // ---------- API ----------
 async function api(path, opts = {}) {
   const res = await fetch(API + path, {
+    signal: AbortSignal.timeout(opts.timeout || 120000),
     ...opts,
     headers: { 'content-type': 'application/json', ...(token ? { authorization: 'Bearer ' + token } : {}), ...(opts.headers || {}) },
   });
@@ -548,18 +549,15 @@ async function publish() {
     const origs = [...pendingOriginals.keys()].filter((path) => used.has(path));
     const files = [...pending.keys()].filter((path) => used.has(path));
 
-    // 1) originals → private repo, 3 at a time
-    let done = 0;
-    const queue = [...origs];
-    const worker = async () => {
-      while (queue.length) {
-        const path = queue.shift();
-        setBusy(`Guardando originales ${done + 1}/${origs.length}…`);
-        await api('/original', { method: 'POST', body: JSON.stringify({ path, data: await toB64(pendingOriginals.get(path)) }) });
-        pendingOriginals.delete(path); done++;
-      }
-    };
-    await Promise.all([worker(), worker(), worker()]);
+    // 1) originals → private repo, one after another (GitHub rejects simultaneous writes to one repo).
+    //    They are small WebP now, so this takes a couple of seconds each. Each one is retried before giving up.
+    for (let i = 0; i < origs.length; i++) {
+      const path = origs[i];
+      setBusy(`Guardando originales ${i + 1}/${origs.length}…`);
+      const body = JSON.stringify({ path, data: await toB64(pendingOriginals.get(path)) });
+      await retry(() => api('/original', { method: 'POST', body }));
+      pendingOriginals.delete(path);
+    }
 
     // 2) web images → public repo, in batches; the last request also carries content.json
     const batches = [[]]; let size = 0;
@@ -571,10 +569,10 @@ async function publish() {
     for (let i = 0; i < batches.length; i++) {
       const last = i === batches.length - 1;
       setBusy(batches.length > 1 ? `Publicando ${i + 1}/${batches.length}…` : 'Publicando…');
-      const r = await api('/publish', { method: 'POST', body: JSON.stringify({
+      const r = await retry(() => api('/publish', { method: 'POST', body: JSON.stringify({
         files: batches[i], contentSha, content: last ? snapshot : undefined,
         message: last ? 'Update portfolio from admin panel' : 'Upload images from admin panel',
-      }) });
+      }) }));
       if (r.contentSha) contentSha = r.contentSha;
     }
     files.forEach((path) => pending.delete(path));
@@ -589,6 +587,18 @@ async function publish() {
     queued = false;
     setBusy('');
     if (e.message !== 'unauthorized') toast('No se pudo publicar: ' + e.message + ' — tus cambios siguen aquí, prueba otra vez.', 7000);
+  }
+}
+
+// Tries a request up to 3 times (short pauses between) unless the error is final.
+async function retry(fn, tries = 3) {
+  for (let i = 1; ; i++) {
+    try { return await fn(); }
+    catch (e) {
+      const final = e.message === 'unauthorized' || /cambió desde otro dispositivo|no válido|repetido/i.test(e.message);
+      if (final || i >= tries) throw e.name === 'TimeoutError' ? new Error('La conexión tardó demasiado') : e instanceof TypeError ? new Error('No se pudo conectar con el servidor') : e;
+      await new Promise((r) => setTimeout(r, 1500 * i));
+    }
   }
 }
 
