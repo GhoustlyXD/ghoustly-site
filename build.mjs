@@ -61,6 +61,7 @@ await writeFile(
 
 for (const f of ['styles.css', 'site.js', 'render.js']) await cp(join(root, 'src', f), join(out, 'assets', f));
 await cp(join(root, 'src/favicon.svg'), join(out, 'assets/favicon.svg'));
+await cp(join(root, 'src/robots.txt'), join(out, 'robots.txt'));
 await cp(join(root, 'images'), join(out, 'images'), { recursive: true });
 await cp(join(root, 'admin'), join(out, 'admin'), { recursive: true });
 await mkdir(join(out, 'content'), { recursive: true });
