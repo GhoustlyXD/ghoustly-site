@@ -65,7 +65,8 @@
       "tags": [
         "monster",
         "humanoid"
-      ]
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjfq0ltxbk1b",
@@ -136,7 +137,8 @@
       "wireframes": [],
       "tags": [
         "melee"
-      ]
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjftov04il8y",
@@ -490,7 +492,8 @@
       "tags": [
         "monster",
         "humanoid"
-      ]
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjhcubo4q7qh",
@@ -1103,7 +1106,8 @@
       "tags": [
         "monster",
         "humanoid"
-      ]
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjma1x222zb8",
@@ -1139,7 +1143,8 @@
       ],
       "tags": [
         "firearm"
-      ]
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjmkh7a22y8q",
