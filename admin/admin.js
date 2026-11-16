@@ -2,7 +2,7 @@
 const API = (window.GHOUSTLY_CONFIG?.workerUrl || '').replace(/\/+$/, '');
 const BASE = location.pathname.replace(/admin\/.*$/, '');
 const WATERMARK = '@Ghoustly3D';
-const MAX_BATCH = 12 * 1024 * 1024; // bytes of base64 per request
+const MAX_BATCH = 1.5 * 1024 * 1024; // bytes of base64 per request (small: the free Worker has a tight CPU limit)
 
 const app = document.getElementById('app');
 let token = sessionStorage.getItem('gh-token') || '';
