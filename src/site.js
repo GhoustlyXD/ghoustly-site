@@ -4,7 +4,6 @@ const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-const NEW_DAYS = 14;
 
 function initTheme() {
   $$('[data-theme-toggle]').forEach((b) =>
@@ -35,14 +34,6 @@ function initImages() {
   $$('img').forEach((im) => {
     if (im.complete) im.style.backgroundImage = '';
     else im.addEventListener('load', () => { im.style.backgroundImage = ''; }, { once: true });
-  });
-}
-
-function initNewBadges() {
-  const now = Date.now();
-  $$('.tile[data-recent][data-created]').forEach((t) => {
-    const d = Date.parse(t.dataset.created);
-    if (d && now - d < NEW_DAYS * 864e5) { const b = $('.chip.new', t); if (b) b.hidden = false; }
   });
 }
 
@@ -281,7 +272,7 @@ function initCopyLink() {
 }
 
 function init() {
-  initTheme(); initClock(); initImages(); initNewBadges(); initFilters(); initMore();
+  initTheme(); initClock(); initImages(); initFilters(); initMore();
   initTileCycle(); initFeatured(); initReviews(); initZoom(); initGallery(); initCopyLink();
 }
 

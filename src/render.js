@@ -136,27 +136,14 @@ function siteFooter(content) {
 <div class="mbar"><span class="mono">${slots(s).total ? `${slots(s).filled}/${slots(s).total} slots` : ''}</span><a class="btn primary" href="${esc(safeUrl(s.discordUrl))}" target="_blank" rel="noopener">Request a commission</a></div>`;
 }
 
-// The 3 most recently added projects of each section may show "NEW" (the browser also checks they are < 14 days old).
-export function recentIds(content, perSection = 3) {
-  const ids = new Set();
-  for (const section of ['main', 'more']) {
-    content.projects
-      .filter((p) => p.section === section && p.createdAt)
-      .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-      .slice(0, perSection)
-      .forEach((p) => ids.add(p.id));
-  }
-  return ids;
-}
-
 function tile(content, base, p, small) {
   const imgs = (p.images || []).map((im) => asset(base, im.thumb || im.src));
   const cat = catOf(content, p.category);
   const n = imgs.length;
-  return `<a class="tile${small ? ' small' : ''}" href="${projectUrl(base, p)}" data-cat="${esc(p.category)}" data-created="${esc(p.createdAt || '')}"${recentIds(content).has(p.id) ? ' data-recent' : ''} data-images="${esc(JSON.stringify(imgs))}">
+  return `<a class="tile${small ? ' small' : ''}" href="${projectUrl(base, p)}" data-cat="${esc(p.category)}" data-created="${esc(p.createdAt || '')}" data-images="${esc(JSON.stringify(imgs))}">
 <div class="frame">${img(base, (p.images || [])[0], p.title, 'cover')}
 ${n > 1 ? `<div class="bars" aria-hidden="true">${'<span></span>'.repeat(n)}</div><span class="chip count mono"><span data-i>1</span> / ${n}</span>` : ''}
-<span class="chip new mono" hidden>NEW</span>
+${p.isNew ? '<span class="chip new mono">NEW</span>' : ''}
 </div>
 <div class="tile-cap"><span class="t">${esc(p.title)}</span>${small ? '' : `<span class="mono muted up">${esc(cat.single)}</span>`}</div>
 </a>`;

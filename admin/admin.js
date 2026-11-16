@@ -203,7 +203,7 @@ function viewWorks(main) {
     const cover = p.images?.[0];
     return h('div', { class: 'card', 'data-id': p.id },
       h('div', { class: 'th', style: cover ? { backgroundImage: `url("${imgUrl(cover.thumb || cover.src)}")` } : {} },
-        h('div', { class: 'badges mono' }, p.featured ? h('span', {}, '★ Destacado') : null, p.wireframes?.length ? h('span', {}, 'Malla') : null)),
+        h('div', { class: 'badges mono' }, p.featured ? h('span', {}, '★ Destacado') : null, p.isNew ? h('span', {}, 'NEW') : null, p.wireframes?.length ? h('span', {}, 'Malla') : null)),
       h('div', { class: 't' }, h('span', {}, p.title || 'Sin título'), h('button', { type: 'button', onclick: () => openEditor(p) }, 'Editar')));
   };
   let n = 0;
@@ -290,6 +290,7 @@ function openEditor(p) {
     tagsEditor(p),
     h('div', { class: 'list' },
       check('Destacado en la portada (render grande de arriba)', 'featured'),
+      check('Mostrar etiqueta «NEW» en la web', 'isNew'),
       check(`Añadir marca de agua «${WATERMARK}» (esquina) — desmárcalo si tus renders ya la llevan`, 'watermark'),
       [...(p.images || []), ...(p.wireframes || [])].some((im) => !im.orig)
         ? h('p', { class: 'hint' }, 'Nota: las imágenes importadas de tu web anterior se quedan como están; la marca de agua solo se aplica a las que subas desde aquí.')
