@@ -8,4 +8,4 @@ BRANCH = "main"
 # Private repo where untouched originals are stored (so the watermark can be changed later). Leave "" to disable.
 ORIGINALS_REPO = "GhoustlyXD/ghoustly-originals"
 # Where the admin panel is opened from. Add https://ghoustly3d.com when the domain moves over.
-ALLOWED_ORIGINS = "https://ghoustlyxd.github.io"
+ALLOWED_ORIGINS = "https://ghoustly3d.com,https://www.ghoustly3d.com,https://ghoustlyxd.github.io"
