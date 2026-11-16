@@ -16,33 +16,213 @@
     "analyticsToken": ""
   },
   "categories": [
-    { "id": "weapon", "label": "Weapons", "single": "Weapon" },
-    { "id": "character", "label": "Characters", "single": "Character" },
-    { "id": "ugc", "label": "UGC", "single": "UGC" },
-    { "id": "building", "label": "Buildings", "single": "Building" }
+    {
+      "id": "weapon",
+      "label": "Weapons",
+      "single": "Weapon"
+    },
+    {
+      "id": "character",
+      "label": "Characters",
+      "single": "Character"
+    },
+    {
+      "id": "ugc",
+      "label": "UGC",
+      "single": "UGC"
+    },
+    {
+      "id": "building",
+      "label": "Buildings",
+      "single": "Building"
+    }
   ],
   "projects": [
-    { "id": "p1", "slug": "sample-weapon-set", "title": "Sample Weapon Set", "category": "weapon", "section": "main", "featured": true, "watermark": true, "year": "2026", "madeFor": "", "tris": "2.4k", "textures": "1K PBR", "description": "Placeholder project — replace it from the admin panel.", "createdAt": "2026-11-16T00:00:00Z",
-      "images": [ { "src": "images/placeholders/weapon-1.svg", "thumb": "images/placeholders/weapon-1.svg" }, { "src": "images/placeholders/weapon-2.svg", "thumb": "images/placeholders/weapon-2.svg" }, { "src": "images/placeholders/weapon-3.svg", "thumb": "images/placeholders/weapon-3.svg" } ],
-      "wireframes": [ { "src": "images/placeholders/wire-1.svg", "thumb": "images/placeholders/wire-1.svg" } ] },
-    { "id": "p2", "slug": "sample-sword", "title": "Sample Sword", "category": "weapon", "section": "main", "featured": false, "watermark": true, "year": "2025", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-10-01T00:00:00Z",
-      "images": [ { "src": "images/placeholders/weapon-2.svg", "thumb": "images/placeholders/weapon-2.svg" }, { "src": "images/placeholders/weapon-1.svg", "thumb": "images/placeholders/weapon-1.svg" } ], "wireframes": [] },
-    { "id": "p3", "slug": "sample-character", "title": "Sample Character", "category": "character", "section": "main", "featured": true, "watermark": false, "year": "2026", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-09-01T00:00:00Z",
-      "images": [ { "src": "images/placeholders/character-1.svg", "thumb": "images/placeholders/character-1.svg" }, { "src": "images/placeholders/character-2.svg", "thumb": "images/placeholders/character-2.svg" } ], "wireframes": [] },
-    { "id": "p4", "slug": "sample-monster", "title": "Sample Monster", "category": "character", "section": "main", "featured": false, "watermark": true, "year": "2025", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-08-01T00:00:00Z",
-      "images": [ { "src": "images/placeholders/character-2.svg", "thumb": "images/placeholders/character-2.svg" }, { "src": "images/placeholders/character-1.svg", "thumb": "images/placeholders/character-1.svg" } ], "wireframes": [] },
-    { "id": "p5", "slug": "sample-ugc-outfit", "title": "Sample UGC Outfit", "category": "ugc", "section": "main", "featured": false, "watermark": true, "year": "2026", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2026-11-10T00:00:00Z",
-      "images": [ { "src": "images/placeholders/ugc-1.svg", "thumb": "images/placeholders/ugc-1.svg" }, { "src": "images/placeholders/ugc-2.svg", "thumb": "images/placeholders/ugc-2.svg" } ], "wireframes": [] },
-    { "id": "p6", "slug": "sample-building", "title": "Sample Building", "category": "building", "section": "main", "featured": true, "watermark": true, "year": "2025", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-07-01T00:00:00Z",
-      "images": [ { "src": "images/placeholders/building-1.svg", "thumb": "images/placeholders/building-1.svg" }, { "src": "images/placeholders/building-2.svg", "thumb": "images/placeholders/building-2.svg" } ], "wireframes": [] },
-    { "id": "p7", "slug": "sample-prop", "title": "Sample Prop", "category": "weapon", "section": "more", "featured": false, "watermark": true, "year": "2024", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2024-05-01T00:00:00Z",
-      "images": [ { "src": "images/placeholders/weapon-3.svg", "thumb": "images/placeholders/weapon-3.svg" } ], "wireframes": [] },
-    { "id": "p8", "slug": "sample-accessory", "title": "Sample Accessory", "category": "ugc", "section": "more", "featured": false, "watermark": true, "year": "2024", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2024-04-01T00:00:00Z",
-      "images": [ { "src": "images/placeholders/ugc-2.svg", "thumb": "images/placeholders/ugc-2.svg" } ], "wireframes": [] }
+    {
+      "id": "pmwjeug17d3i7d",
+      "slug": "untitled",
+      "title": "Untitled",
+      "category": "weapon",
+      "section": "main",
+      "featured": true,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-16T15:20:37.291Z",
+      "images": [
+        {
+          "src": "images/pmwjeug17d3i7d/mwjeuybax5sc2.webp",
+          "thumb": "images/pmwjeug17d3i7d/mwjeuybax5sc2-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRlQCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggZgAAANADAJ0BKhgADgA+0VakS6gko6GwCAEAGglnAAPjYg39ygSU2eHZAAD+9WZ8R58oo34VZDB9D9YYSfKEB6XSWa5Nfqy2ipuUiTPe/U9z46htQxRZUX3auiVr/4ulxzvd6K911uAAAA==",
+          "wm": true,
+          "orig": "originals/pmwjeug17d3i7d/mwjeuybax5sc2.png"
+        }
+      ],
+      "wireframes": []
+    },
+    {
+      "id": "p3",
+      "slug": "sample-character",
+      "title": "Sample Character",
+      "category": "character",
+      "section": "main",
+      "featured": true,
+      "watermark": false,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2025-09-01T00:00:00Z",
+      "images": [
+        {
+          "src": "images/placeholders/character-1.svg",
+          "thumb": "images/placeholders/character-1.svg"
+        },
+        {
+          "src": "images/placeholders/character-2.svg",
+          "thumb": "images/placeholders/character-2.svg"
+        }
+      ],
+      "wireframes": []
+    },
+    {
+      "id": "p4",
+      "slug": "sample-monster",
+      "title": "Sample Monster",
+      "category": "character",
+      "section": "main",
+      "featured": false,
+      "watermark": true,
+      "year": "2025",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2025-08-01T00:00:00Z",
+      "images": [
+        {
+          "src": "images/placeholders/character-2.svg",
+          "thumb": "images/placeholders/character-2.svg"
+        },
+        {
+          "src": "images/placeholders/character-1.svg",
+          "thumb": "images/placeholders/character-1.svg"
+        }
+      ],
+      "wireframes": []
+    },
+    {
+      "id": "p5",
+      "slug": "sample-ugc-outfit",
+      "title": "Sample UGC Outfit",
+      "category": "ugc",
+      "section": "main",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-10T00:00:00Z",
+      "images": [
+        {
+          "src": "images/placeholders/ugc-1.svg",
+          "thumb": "images/placeholders/ugc-1.svg"
+        },
+        {
+          "src": "images/placeholders/ugc-2.svg",
+          "thumb": "images/placeholders/ugc-2.svg"
+        }
+      ],
+      "wireframes": []
+    },
+    {
+      "id": "p6",
+      "slug": "sample-building",
+      "title": "Sample Building",
+      "category": "building",
+      "section": "main",
+      "featured": true,
+      "watermark": true,
+      "year": "2025",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2025-07-01T00:00:00Z",
+      "images": [
+        {
+          "src": "images/p6/mwjew3qpu451j.webp",
+          "thumb": "images/p6/mwjew3qpu451j-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRlwCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggbgAAAPADAJ0BKhgADgA+0VakS6gko6GwCAEAGglpAABh2KUfw3sIloGTEAAA/u9jI7WnZf6DtUQjrXu5VaxJ2QTB8mecx0ybiext9rj0tp92N+7gQp8dRATYbUEaVuVQ+xv8+/DfPT//qPxzvW32aAAA",
+          "wm": true,
+          "orig": "originals/p6/mwjew3qpu451j.png"
+        }
+      ],
+      "wireframes": []
+    },
+    {
+      "id": "p7",
+      "slug": "sample-prop",
+      "title": "Sample Prop",
+      "category": "weapon",
+      "section": "more",
+      "featured": false,
+      "watermark": true,
+      "year": "2024",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2024-05-01T00:00:00Z",
+      "images": [
+        {
+          "src": "images/p7/mwjevdz7uzt1p.webp",
+          "thumb": "images/p7/mwjevdz7uzt1p-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRnICAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgghAAAADAEAJ0BKhgADgA+0VSjS6gkoyGwCAEAGgljAJ0ygCWZEZbViZtMNRbLgAD+9DLWTBHl3T3OH5yqfa9j7logLAarRi4J9GHlE7T8SpOh2O/07M+YLMqlzj2JjAT5CUxt74JYKkcnS9+0GuIjtwKrQ+lq59wccGLv/i6XHO93ocsoAJZgAA==",
+          "wm": true,
+          "orig": "originals/p7/mwjevdz7uzt1p.png"
+        }
+      ],
+      "wireframes": []
+    },
+    {
+      "id": "p8",
+      "slug": "sample-accessory",
+      "title": "Sample Accessory",
+      "category": "ugc",
+      "section": "more",
+      "featured": false,
+      "watermark": true,
+      "year": "2024",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2024-04-01T00:00:00Z",
+      "images": [
+        {
+          "src": "images/placeholders/ugc-2.svg",
+          "thumb": "images/placeholders/ugc-2.svg"
+        }
+      ],
+      "wireframes": []
+    }
   ],
   "wip": [
-    { "src": "images/placeholders/wip-1.svg", "thumb": "images/placeholders/wip-1.svg" },
-    { "src": "images/placeholders/wip-2.svg", "thumb": "images/placeholders/wip-2.svg" }
+    {
+      "src": "images/placeholders/wip-1.svg",
+      "thumb": "images/placeholders/wip-1.svg"
+    },
+    {
+      "src": "images/placeholders/wip-2.svg",
+      "thumb": "images/placeholders/wip-2.svg"
+    }
   ],
   "clients": [],
   "reviews": []
