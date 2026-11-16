@@ -246,14 +246,32 @@ function zoomDialog() {
 </dialog>`;
 }
 
+const normTag = (t) => String(t).trim().toLowerCase();
+
+// Up to 3 recommendations: shared tags count most, then same category, then main portfolio over "More work".
+export function relatedProjects(content, p, n = 3) {
+  const mine = new Set((p.tags || []).map(normTag).filter(Boolean));
+  const pool = [...orderedProjects(content, 'main'), ...orderedProjects(content, 'more')].filter((x) => x.id !== p.id);
+  return pool
+    .map((x, i) => {
+      const shared = (x.tags || []).map(normTag).filter((t) => mine.has(t)).length;
+      const score = shared * 10 + (x.category === p.category ? 5 : 0) + (x.section === 'main' ? 1 : 0);
+      return { x, i, score };
+    })
+    .filter((r) => r.score >= 5)
+    .sort((a, b) => b.score - a.score || a.i - b.i)
+    .slice(0, n)
+    .map((r) => r.x);
+}
+
 export function projectBody(content, base, p) {
   const cat = catOf(content, p.category);
   const images = p.images || [];
   const wires = p.wireframes || [];
   const specs = [p.madeFor ? `Made for ${p.madeFor}` : '', p.tris ? `${p.tris} tris` : '', p.textures || ''].filter(Boolean);
-  const related = [...orderedProjects(content, 'main'), ...orderedProjects(content, 'more')]
-    .filter((x) => x.category === p.category && x.id !== p.id)
-    .slice(0, 3);
+  const related = relatedProjects(content, p);
+  const relatedTitle = related.length && related.every((x) => x.category === p.category) ? `More ${cat.label}` : 'Similar work';
+  const tags = (p.tags || []).filter(Boolean);
   const gallery = (list, mode) =>
     JSON.stringify(list.map((im) => ({ src: asset(base, im.src), lqip: im.lqip || '' })));
 
@@ -263,7 +281,7 @@ export function projectBody(content, base, p) {
 <div class="p-title-wrap">
 <span class="mono up accent">${esc(cat.single)}${p.year ? ` · ${esc(p.year)}` : ''}</span>
 <h1 class="p-title">${esc(p.title)}</h1>
-${specs.length ? `<div class="specs mono">${specs.map((x) => `<span>${esc(x)}</span>`).join('')}</div>` : ''}
+${specs.length || tags.length ? `<div class="specs mono">${specs.map((x) => `<span>${esc(x)}</span>`).join('')}${tags.map((t) => `<span class="tag">#${esc(t)}</span>`).join('')}</div>` : ''}
 </div>
 <div class="p-side">
 ${p.description ? `<p class="muted">${esc(p.description)}</p>` : ''}
@@ -284,7 +302,7 @@ ${images.length > 1 ? `<button type="button" class="iconbtn nav prev" data-prev 
 
 ${
   related.length
-    ? `<section class="related line"><div class="sec-head"><h2>More ${esc(cat.label)}</h2><a class="mono muted" href="${base}#work">All work →</a></div>
+    ? `<section class="related line"><div class="sec-head"><h2>${esc(relatedTitle)}</h2><a class="mono muted" href="${base}#work">All work →</a></div>
 <div class="grid">${related.map((x) => tile(content, base, x, false)).join('\n')}</div></section>`
     : ''
 }

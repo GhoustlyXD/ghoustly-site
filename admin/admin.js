@@ -210,6 +210,7 @@ function openEditor(p) {
       field('Texturas (opcional)', 'textures', { ph: '1K PBR' }),
       field('Made for (opcional)', 'madeFor', { ph: 'Nombre del juego o grupo', wide: true }),
       field('Descripción (opcional)', 'description', { area: true, wide: true })),
+    tagsEditor(p),
     h('div', { class: 'list' },
       check('Destacado en la portada (render grande de arriba)', 'featured'),
       check(`Añadir marca de agua «${WATERMARK}» (esquina) — desmárcalo si tus renders ya la llevan`, 'watermark'),
@@ -231,6 +232,29 @@ function openEditor(p) {
   dlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
   document.body.append(dlg);
   dlg.showModal();
+}
+
+// Tags: free words in English, used to recommend similar work under each project.
+const STARTER_TAGS = { weapon: ['firearm', 'melee'], character: ['monster', 'humanoid'], building: ['building', 'prop'], ugc: ['clothing', 'accessory'] };
+function tagsEditor(p) {
+  p.tags = p.tags || [];
+  const norm = (t) => String(t).trim().toLowerCase().replace(/^#+/, '').replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, ' ').slice(0, 30);
+  const chips = h('div', { class: 'tagrow' });
+  const sugg = h('div', { class: 'tagrow' });
+  const input = h('input', { class: 'fld', placeholder: 'Escribe un tag y pulsa Enter (ej: firearm)', 'aria-label': 'Nuevo tag' });
+  const addTag = (t) => { t = norm(t); if (t && !p.tags.includes(t)) p.tags.push(t); draw(); };
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTag(input.value); input.value = ''; } });
+  input.addEventListener('blur', () => { if (input.value.trim()) { addTag(input.value); input.value = ''; } });
+  const draw = () => {
+    chips.replaceChildren(...p.tags.map((t) => h('button', { type: 'button', class: 'tagchip on', 'aria-label': 'Quitar tag ' + t, onclick: () => { p.tags = p.tags.filter((x) => x !== t); draw(); } }, '#' + t + ' ✕')));
+    const used = content.projects.filter((x) => x !== p).flatMap((x) => x.tags || []);
+    const all = [...new Set([...(STARTER_TAGS[p.category] || []), ...used])].filter((t) => !p.tags.includes(t));
+    sugg.replaceChildren(...(all.length ? [h('span', { class: 'hint' }, 'Sugerencias:'), ...all.map((t) => h('button', { type: 'button', class: 'tagchip', onclick: () => addTag(t) }, '+ #' + t))] : []));
+  };
+  draw();
+  return h('div', { class: 'tags-ed' },
+    h('span', { class: 'lbl' }, 'Tags (en inglés) — debajo de cada trabajo se recomiendan los que comparten tags'),
+    chips, input, sugg);
 }
 
 // A sortable list of images with an upload drop zone. key: 'images' | 'wireframes' | (wip uses its own owner)

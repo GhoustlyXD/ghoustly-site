@@ -212,3 +212,4 @@ img { transition: opacity 0.3s; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+.specs .tag { color: var(--accent-ink); }
