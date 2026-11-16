@@ -311,7 +311,7 @@ function imageList(owner, key, isProject, primary) {
       try {
         const entry = await addImage(f, isProject ? owner : null);
         owner[key].push(entry); draw();
-      } catch (e) { toast('No se pudo procesar ' + (f.name || 'la imagen') + ': ' + e.message); }
+      } catch (e) { toast('No se pudo procesar ' + (f.name || 'la imagen') + ': ' + (e?.message || 'formato no compatible')); }
     }
     render();
   };
@@ -377,6 +377,7 @@ const toBlob = (c, q) => new Promise((res, rej) => c.toBlob((b) => (b ? res(b) :
 async function addImage(file, project) {
   processing++; renderTop();
   try {
+    file = new File([await file.arrayBuffer()], file.name || 'image.png', { type: file.type || 'image/png' });
     const wm = !!project?.watermark;
     const r = await processImage(file, wm);
     const key = uid();
@@ -525,7 +526,7 @@ function openPreview() {
   window.open(BASE + '?preview=1', '_blank');
 }
 
-const toB64 = (blob) => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1]); r.onerror = rej; r.readAsDataURL(blob); });
+const toB64 = (blob) => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1]); r.onerror = () => rej(new Error('No se pudo leer una imagen. Quítala y vuelve a añadirla.')); r.readAsDataURL(blob); });
 
 function usedPaths(c) {
   const set = new Set();
@@ -586,7 +587,8 @@ async function publish() {
   } catch (e) {
     queued = false;
     setBusy('');
-    if (e.message !== 'unauthorized') toast('No se pudo publicar: ' + e.message + ' — tus cambios siguen aquí, prueba otra vez.', 7000);
+    const msg = e?.message || e?.target?.error?.message || String(e);
+    if (msg !== 'unauthorized') toast('No se pudo publicar: ' + msg + ' — tus cambios siguen aquí, prueba otra vez.', 8000);
   }
 }
 
