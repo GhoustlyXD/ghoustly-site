@@ -13,6 +13,9 @@ let originalsEnabled = false;
 let tab = 'works';
 let busy = '';
 let processing = 0; // images being converted right now
+let publishingJson = ''; // what the save in progress is sending
+let queued = false;      // publish again as soon as the current save ends
+const changedSinceSave = () => !!busy && JSON.stringify(clean(content)) !== publishingJson;
 const pending = new Map(); // path -> { blob, url }   new files not yet published
 const pendingOriginals = new Map(); // path -> blob (private repo)
 
@@ -125,13 +128,15 @@ function buildTop() {
           h('button', { type: 'button', 'aria-label': 'Una plaza más', onclick: slot(1) }, '+')),
         h('a', { class: 'btn', href: BASE, target: '_blank', rel: 'noopener' }, 'Ver web ↗'),
         h('button', { class: 'btn', type: 'button', onclick: openPreview }, 'Vista previa'),
-        h('button', { class: 'btn primary', type: 'button', disabled: !!busy || processing > 0 || !dirty(), onclick: publish }, 'Publicar'))),
+        busy
+          ? h('button', { class: 'btn primary', type: 'button', disabled: queued || !changedSinceSave(), onclick: () => { queued = true; renderTop(); toast('En cola: se publicará en cuanto termine el guardado actual.'); } }, queued ? 'En cola ✓' : 'Añadir a la cola')
+          : h('button', { class: 'btn primary', type: 'button', disabled: processing > 0 || !dirty(), onclick: publish }, 'Publicar'))),
     h('nav', { class: 'tabs', role: 'tablist' },
       ...[['works', 'Trabajos'], ['site', 'Portada'], ['wip', 'WIP'], ['proof', 'Clientes y reseñas'], ['history', 'Historial']].map(([id, label]) =>
         h('button', { role: 'tab', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, label))));
   return top;
 }
-document.addEventListener('input', () => { if (content && !busy) renderTop(); });
+document.addEventListener('input', () => { if (content) renderTop(); });
 window.addEventListener('beforeunload', (e) => { if (content && dirty()) { e.preventDefault(); e.returnValue = ''; } });
 
 // ---------- Trabajos ----------
@@ -530,13 +535,15 @@ function usedPaths(c) {
 }
 
 async function publish() {
-  if (busy || processing) return;
+  if (busy) return;
+  if (processing) { queued = true; renderTop(); return waitAndPublish(); }
   for (const p of content.projects) { if (!p.title?.trim()) p.title = 'Untitled'; if (!p.slug) p.slug = uniqueSlug(p.title, p); }
   try {
     const skipped = await applyWatermarkChanges();
     if (skipped) toast(`${skipped} imágenes antiguas no tienen original guardado: su marca de agua no se puede cambiar.`, 6000);
     // Publish a snapshot: anything you change from now on stays as "Cambios sin publicar" for next time.
     const snapshot = clean(content);
+    publishingJson = JSON.stringify(snapshot);
     const used = usedPaths(snapshot);
     const origs = [...pendingOriginals.keys()].filter((path) => used.has(path));
     const files = [...pending.keys()].filter((path) => used.has(path));
@@ -575,11 +582,21 @@ async function publish() {
     content.projects.forEach((p) => { if (ids.has(p.id)) delete p._new; });
     savedJson = JSON.stringify(snapshot);
     setBusy('');
+    if (queued && dirty()) { queued = false; toast('Publicado. Ahora publico lo que tenías en cola…'); return waitAndPublish(); }
+    queued = false;
     toast(dirty() ? '¡Publicado! Lo que cambiaste mientras guardaba queda pendiente para la próxima vez.' : '¡Publicado! Los cambios se verán en la web en ~1 minuto.', 5000);
   } catch (e) {
+    queued = false;
     setBusy('');
     if (e.message !== 'unauthorized') toast('No se pudo publicar: ' + e.message + ' — tus cambios siguen aquí, prueba otra vez.', 7000);
   }
+}
+
+// Waits for images still being converted, then publishes.
+async function waitAndPublish() {
+  while (processing > 0) await new Promise((r) => setTimeout(r, 300));
+  queued = false;
+  return publish();
 }
 
 // ---------- boot ----------
