@@ -80,7 +80,7 @@ dialog.editor::backdrop { background: rgba(0,0,0,.65); }
 .img { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; background: #252b2f center / cover no-repeat; border: 1px solid var(--line); cursor: grab; }
 .img .x { position: absolute; right: 4px; top: 4px; width: 32px; height: 32px; border-radius: 8px; border: 0; background: rgba(12,14,15,.85); cursor: pointer; }
 .img .n { position: absolute; left: 4px; bottom: 4px; background: rgba(12,14,15,.85); padding: 2px 6px; border-radius: 4px; }
-.drop { display: flex; align-items: center; justify-content: center; text-align: center; aspect-ratio: 16 / 9; border-radius: 8px; border: 2px dashed var(--line-2); color: var(--muted); font-size: 13px; cursor: pointer; padding: 8px; }
+.drop { background: transparent; display: flex; align-items: center; justify-content: center; text-align: center; aspect-ratio: 16 / 9; border-radius: 8px; border: 2px dashed var(--line-2); color: var(--muted); font-size: 13px; cursor: pointer; padding: 8px; }
 .drop.over { border-color: var(--accent); color: var(--text); }
 .list { display: flex; flex-direction: column; gap: 8px; }
 .li { display: flex; gap: 8px; align-items: flex-start; background: var(--card-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
@@ -97,3 +97,5 @@ dialog.editor::backdrop { background: rgba(0,0,0,.65); }
   .top-actions { margin-left: 0; width: 100%; }
   .top-actions .btn { flex: 1; }
 }
+.drop.paste { border-style: solid; }
+.drop .mono { color: var(--muted); }

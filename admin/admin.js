@@ -106,6 +106,7 @@ function render() {
           h('button', { type: 'button', 'aria-label': 'Una plaza menos', onclick: slot(-1) }, '−'),
           h('span', { class: 'mono' }, `${s.slotsFilled}/${s.slotsTotal} plazas`),
           h('button', { type: 'button', 'aria-label': 'Una plaza más', onclick: slot(1) }, '+')),
+        h('a', { class: 'btn', href: BASE, target: '_blank', rel: 'noopener' }, 'Ver web ↗'),
         h('button', { class: 'btn', type: 'button', onclick: openPreview }, 'Vista previa'),
         h('button', { class: 'btn primary', type: 'button', disabled: !!busy || !dirty(), onclick: publish }, 'Publicar'))),
     h('nav', { class: 'tabs', role: 'tablist' },
@@ -217,8 +218,8 @@ function openEditor(p) {
         : null,
       h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: p._wireOn, onchange: (e) => { p._wireOn = e.target.checked; if (!e.target.checked) p.wireframes = []; renderWire(); } }), 'Este proyecto tiene capturas de malla (wireframe)')),
     h('h3', {}, 'Renders'),
-    h('p', { class: 'hint' }, 'La primera imagen es la portada. Arrastra para ordenar. Se convierten a WebP automáticamente.'),
-    imageList(p, 'images', true),
+    h('p', { class: 'hint' }, 'La primera imagen es la portada. Arrastra para ordenar. Puedes copiar una imagen y pegarla con Ctrl+V. Se convierten a WebP automáticamente.'),
+    imageList(p, 'images', true, true),
     wireBox,
     h('div', { class: 'row', style: { borderTop: '1px solid var(--line)', paddingTop: '14px' } },
       h('button', { class: 'btn danger', type: 'button', onclick: () => {
@@ -233,33 +234,62 @@ function openEditor(p) {
 }
 
 // A sortable list of images with an upload drop zone. key: 'images' | 'wireframes' | (wip uses its own owner)
-function imageList(owner, key, isProject) {
+// The image list that receives Ctrl+V. The last list you touched (or the main one when it opens).
+let pasteTarget = null;
+document.addEventListener('paste', (e) => {
+  const files = [...(e.clipboardData?.items || [])].filter((it) => it.kind === 'file' && it.type.startsWith('image/')).map((it) => it.getAsFile()).filter(Boolean);
+  if (!files.length || !pasteTarget || !pasteTarget.wrap.isConnected) return;
+  e.preventDefault();
+  pasteTarget.add(files.map((f, i) => (f.name && f.name !== 'image.png' ? f : new File([f], `pasted-${Date.now()}-${i}.png`, { type: f.type }))));
+});
+
+async function pasteFromClipboard(add) {
+  try {
+    const items = await navigator.clipboard.read();
+    const files = [];
+    for (const it of items) {
+      const type = it.types.find((t) => t.startsWith('image/'));
+      if (type) files.push(new File([await it.getType(type)], `pasted-${Date.now()}.png`, { type }));
+    }
+    if (files.length) add(files); else toast('No hay ninguna imagen copiada.');
+  } catch (e) {
+    toast('Tu navegador no deja leer el portapapeles desde aquí. Prueba con Ctrl+V.');
+  }
+}
+
+function imageList(owner, key, isProject, primary) {
   owner[key] = owner[key] || [];
   const wrap = h('div', { class: 'imgs' });
+  const add = async (files) => {
+    for (const f of files) {
+      try {
+        const entry = await addImage(f, isProject ? owner : null);
+        owner[key].push(entry); draw();
+      } catch (e) { toast('No se pudo procesar ' + (f.name || 'la imagen') + ': ' + e.message); }
+    }
+    render();
+  };
+  const target = { wrap, add };
+  if (primary) pasteTarget = target;
+  wrap.addEventListener('pointerdown', () => (pasteTarget = target));
+  wrap.addEventListener('focusin', () => (pasteTarget = target));
   const draw = () => {
     wrap.replaceChildren(
       ...owner[key].map((im, i) => h('div', { class: 'img', 'data-i': i, style: { backgroundImage: `url("${imgUrl(im.thumb || im.src)}")` } },
         h('span', { class: 'n mono' }, i + 1),
         h('button', { class: 'x', type: 'button', 'aria-label': 'Quitar imagen ' + (i + 1), onclick: () => { owner[key].splice(i, 1); draw(); } }, '✕'))),
-      dropZone(async (files) => {
-        for (const f of files) {
-          try {
-            const entry = await addImage(f, isProject ? owner : null);
-            owner[key].push(entry); draw();
-          } catch (e) { toast('No se pudo procesar ' + f.name + ': ' + e.message); }
-        }
-        render();
-      }));
-    if (window.Sortable) Sortable.create(wrap, { animation: 150, delay: 180, delayOnTouchOnly: true, draggable: '.img', filter: '.x', preventOnFilter: false,
-      onEnd: () => { const order = [...wrap.querySelectorAll('.img')].map((el) => owner[key][+el.dataset.i]); owner[key] = order; draw(); } });
+      dropZone(add),
+      h('button', { class: 'drop paste', type: 'button', onclick: () => { pasteTarget = target; pasteFromClipboard(add); } }, 'Pegar imagen', h('br'), h('span', { class: 'mono' }, 'o Ctrl+V')));
   };
+  if (window.Sortable) Sortable.create(wrap, { animation: 150, delay: 180, delayOnTouchOnly: true, draggable: '.img', filter: '.x', preventOnFilter: false,
+    onEnd: () => { const order = [...wrap.querySelectorAll('.img')].map((el) => owner[key][+el.dataset.i]); owner[key] = order; draw(); } });
   draw();
   return wrap;
 }
 
 function dropZone(onFiles) {
   const input = h('input', { type: 'file', accept: 'image/*', multiple: true, hidden: true, onchange: (e) => { onFiles([...e.target.files]); e.target.value = ''; } });
-  const z = h('button', { class: 'drop', type: 'button', onclick: () => input.click() }, 'Añadir imágenes', h('br'), '(o suéltalas aquí)', input);
+  const z = h('button', { class: 'drop', type: 'button', onclick: () => input.click() }, 'Añadir imágenes', h('br'), '(o arrástralas aquí)', input);
   z.addEventListener('dragover', (e) => { e.preventDefault(); z.classList.add('over'); });
   z.addEventListener('dragleave', () => z.classList.remove('over'));
   z.addEventListener('drop', (e) => { e.preventDefault(); z.classList.remove('over'); onFiles([...e.dataTransfer.files].filter((f) => f.type.startsWith('image/'))); });
@@ -368,7 +398,7 @@ function viewSite(main) {
 function viewWip(main) {
   main.append(h('section', { class: 'panel' }, h('h2', {}, 'Working right now on'),
     h('p', { class: 'hint' }, 'Capturas de lo que estás haciendo ahora. Sin marca de agua. Si no hay ninguna, la sección no aparece.'),
-    imageList(content, 'wip', false)));
+    imageList(content, 'wip', false, true)));
 }
 
 // ---------- Clients & reviews ----------
