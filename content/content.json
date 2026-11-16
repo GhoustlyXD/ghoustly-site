@@ -222,62 +222,10 @@
       ]
     },
     {
-      "id": "p3",
-      "slug": "sample-character",
-      "title": "Sample Character",
-      "category": "character",
-      "section": "main",
-      "featured": true,
-      "watermark": false,
-      "year": "2026",
-      "madeFor": "",
-      "tris": "",
-      "textures": "",
-      "description": "",
-      "createdAt": "2025-09-01T00:00:00Z",
-      "images": [
-        {
-          "src": "images/placeholders/character-1.svg",
-          "thumb": "images/placeholders/character-1.svg"
-        },
-        {
-          "src": "images/placeholders/character-2.svg",
-          "thumb": "images/placeholders/character-2.svg"
-        }
-      ],
-      "wireframes": []
-    },
-    {
-      "id": "p4",
-      "slug": "sample-monster",
-      "title": "Sample Monster",
-      "category": "character",
-      "section": "main",
-      "featured": false,
-      "watermark": true,
-      "year": "2025",
-      "madeFor": "",
-      "tris": "",
-      "textures": "",
-      "description": "",
-      "createdAt": "2025-08-01T00:00:00Z",
-      "images": [
-        {
-          "src": "images/placeholders/character-2.svg",
-          "thumb": "images/placeholders/character-2.svg"
-        },
-        {
-          "src": "images/placeholders/character-1.svg",
-          "thumb": "images/placeholders/character-1.svg"
-        }
-      ],
-      "wireframes": []
-    },
-    {
-      "id": "p5",
-      "slug": "sample-ugc-outfit",
-      "title": "Sample UGC Outfit",
-      "category": "ugc",
+      "id": "pmwjh73dr5vdu0",
+      "slug": "barrettm82",
+      "title": "BarrettM82",
+      "category": "weapon",
       "section": "main",
       "featured": false,
       "watermark": true,
@@ -286,26 +234,121 @@
       "tris": "",
       "textures": "",
       "description": "",
-      "createdAt": "2026-11-10T00:00:00Z",
+      "createdAt": "2026-11-16T16:26:26.655Z",
       "images": [
         {
-          "src": "images/placeholders/ugc-1.svg",
-          "thumb": "images/placeholders/ugc-1.svg"
+          "src": "images/pmwjh73dr5vdu0/mwjh7cxx3npnx.webp",
+          "thumb": "images/pmwjh73dr5vdu0/mwjh7cxx3npnx-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRnICAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgghAAAANADAJ0BKhgADgA+0VSkS6gko6GwCAEAGglpAAPgkg3+P4k7wBDAAAD+9CE5IpVv2ppczXJwBzcmtb0UUpIPMDKq5NmBJDRCYUFHs5RZolEUH/dfEc1k48lpaJvPQeA35//PHenwPsxKmrooa9f3Y3a1ueCVV31OSP//wvDVUN6JAAAAAA==",
+          "wm": true,
+          "orig": "originals/pmwjh73dr5vdu0/mwjh7cxx3npnx.webp"
         },
         {
-          "src": "images/placeholders/ugc-2.svg",
-          "thumb": "images/placeholders/ugc-2.svg"
+          "src": "images/pmwjh73dr5vdu0/mwjh7gxtz43sz.webp",
+          "thumb": "images/pmwjh73dr5vdu0/mwjh7gxtz43sz-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRrACAABXRUJQVlA4WAoAAAAgAAAAFwAAFwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggwgAAABAFAJ0BKhgAGAA+uUyeS6ckoyG36ADgFwlpAAPia+AKUbOs+Xkc/tu56KzcA+1DgAAA/vd7VYX3hiQUHs7f6pHePhqmPRVp7rmMOFllMLm0bv8yxW12rTnZotawkHbIOBa3HElXx6OjL8EZFJtjWW5+XYlj4APfkvaOmgxMXOhveJhXrun3wjxWVkfXjoD+bCjqOdWzyzv8/xzVBqxMi1wOuMr7yZ3XWI8KkrjoVp9D1znxqbANzbfGQqDki4vp6jgA",
+          "wm": true,
+          "orig": "originals/pmwjh73dr5vdu0/mwjh7gxtz43sz.webp"
+        },
+        {
+          "src": "images/pmwjh73dr5vdu0/mwjh7iu6zek7d.webp",
+          "thumb": "images/pmwjh73dr5vdu0/mwjh7iu6zek7d-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRn4CAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggkAAAAPADAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglpAAPioeTzprAJNA1mQAAA/vSQju+SMkizL1r/4a8m9N3C20qL3ZBT2J3aLi2McM5OLOCYuK80WzYu4HIP6fnA9R3dq0xjUfkoerEr3q5rSelAnbTUU7hq3si8dPmsvRz2B+TVMDhmr7x/Bi7/4XhqqG9EgAAAAA==",
+          "wm": true,
+          "orig": "originals/pmwjh73dr5vdu0/mwjh7iu6zek7d.webp"
         }
       ],
-      "wireframes": []
+      "wireframes": [
+        {
+          "src": "images/pmwjh73dr5vdu0/mwjh7f294w274.webp",
+          "thumb": "images/pmwjh73dr5vdu0/mwjh7f294w274-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRpQCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggpgAAALAEAJ0BKhgADgA+0VSkS6gko6GwCAEAGglpAAQ9nxNfNeoVjq2L/qLUQUfoAAAA/vQiWf/FuCU2Ko0bYvydzRr13BsYkihdIHjH2UYHW5sjrWh7e/q0kaRBzdIAGKXEqC3m0YA+xj69n6/f/wvIPP6y9KeSMdAVZ4qr/+SvS51/mL24kBLfluLFP/ZLWuqoaLMLvzV5u60D/3k+iVr/4XhGrHFYAAA=",
+          "wm": true,
+          "orig": "originals/pmwjh73dr5vdu0/mwjh7f294w274.webp"
+        }
+      ],
+      "tags": [
+        "firearm"
+      ]
+    },
+    {
+      "id": "pmwjh4ciirktxs",
+      "slug": "ar15",
+      "title": "AR15",
+      "category": "weapon",
+      "section": "main",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-16T16:24:18.522Z",
+      "images": [
+        {
+          "src": "images/pmwjh4ciirktxs/mwjh4krhzseua.webp",
+          "thumb": "images/pmwjh4ciirktxs/mwjh4krhzseua-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRmoCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggfAAAAPADAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglpAAPiKasyelVV3pH+XnQA/unafENnyfKklJLRxAUGI+mp4lod5TfjtqGuliWIMwlqc/F5PDnRawKjqwbMht3fFB+WhrD6r+2xiPSI7iM4G2WrWU9aAf+Eg7CD/WpRxlDgAAA=",
+          "wm": true,
+          "orig": "originals/pmwjh4ciirktxs/mwjh4krhzseua.webp"
+        }
+      ],
+      "wireframes": [],
+      "tags": [
+        "firearm"
+      ]
+    },
+    {
+      "id": "pmwjh3awnra3zh",
+      "slug": "ak47",
+      "title": "AK47",
+      "category": "weapon",
+      "section": "main",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-16T16:23:29.783Z",
+      "images": [
+        {
+          "src": "images/pmwjh3awnra3zh/mwjh3vdtf8ukh.webp",
+          "thumb": "images/pmwjh3awnra3zh/mwjh3vdtf8ukh-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRm4CAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgggAAAANADAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglnAAPh+g4FyaWP8JAUAAD+9Ch6du9wlwwGdi5/wrsJ+HXwzXW46CNylIuSVADLXgQJ8ZUX7oCcGw9K1x16c08vVTIC76Ac5GWs6PnDbUUxKAIYzIPo6LWYPola/+F4aqhvRIyFwAAA",
+          "wm": true,
+          "orig": "originals/pmwjh3awnra3zh/mwjh3vdtf8ukh.webp"
+        },
+        {
+          "src": "images/pmwjh3awnra3zh/mwjh3z0y4w9f1.webp",
+          "thumb": "images/pmwjh3awnra3zh/mwjh3z0y4w9f1-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRswCAABXRUJQVlA4WAoAAAAgAAAAFwAAFwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgg3gAAAHAFAJ0BKhgAGAA+tUidS6ckIqG36ADgFolnAMoBitNKUJK0l3V7gYMs5NBWnn+8zi0wd5gA/vd7EO+4x5xMBv6Vvqk/ffD10NvHh1x79jtL6sRFaZGw+mM/QoS+2ZMyKgwCRoej+2sZ0vsoQ3OUZy7MBB/VLuocs/EABHIKXAPXN6BstvnSX1NDvzqQjwLqs+wRH25HzFmmHuafVv/lPgbXA+0YcXQ5Yfl9iHCHqe+ZBJFVkJdp0mR4LjocBxXg2DV+aioLkncD5BIH5jOdyUmey0ezbZHbjsdVAAAAAA==",
+          "wm": true,
+          "orig": "originals/pmwjh3awnra3zh/mwjh3z0y4w9f1.webp"
+        }
+      ],
+      "wireframes": [
+        {
+          "src": "images/pmwjh3awnra3zh/mwjh45jtwhd19.webp",
+          "thumb": "images/pmwjh3awnra3zh/mwjh45jtwhd19-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRo4CAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggoAAAAJAEAJ0BKhgADgA+0VakS6gko6GwCAEAGglpAAPgE8r/WYcLJangYOl5mnsAAAD+9ChPXVvl9DZNt2zPWtqcbFmTgo/vbaM24eHypm5+gmkOOEpmxqILvrvx5jaNAfQbQxLVhGcUf1YO4Krp51Whd3M9tXKasScPw8XJptLOwP9co7184+vV87t92pktYPvonFt0Stf/C8NVQ3okrehAAAA=",
+          "wm": true,
+          "orig": "originals/pmwjh3awnra3zh/mwjh45jtwhd19.webp"
+        }
+      ],
+      "tags": [
+        "firearm"
+      ]
     },
     {
       "id": "p6",
       "slug": "sample-building",
-      "title": "Sample Building",
-      "category": "building",
+      "title": "MiniUZI",
+      "category": "weapon",
       "section": "main",
-      "featured": true,
+      "featured": false,
       "watermark": true,
       "year": "2025",
       "madeFor": "",
@@ -322,7 +365,38 @@
           "orig": "originals/p6/mwjew3qpu451j.png"
         }
       ],
-      "wireframes": []
+      "wireframes": [],
+      "tags": [
+        "firearm"
+      ]
+    },
+    {
+      "id": "pmwjh6geribpx3",
+      "slug": "glock19",
+      "title": "Glock19",
+      "category": "weapon",
+      "section": "main",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-16T16:25:56.883Z",
+      "images": [
+        {
+          "src": "images/pmwjh6geribpx3/mwjh6tb8k9dwv.webp",
+          "thumb": "images/pmwjh6geribpx3/mwjh6tb8k9dwv-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRmQCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggdgAAALADAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglpAAPj8gxHwPFf1BgAAP7tDIPoTwKNu9iTRvSS+ppvmt9sKHQ+j3rg1gKT2XDNazOEyFXaYuJzlaqoKcb2Cg9d2P0G6KtdIfNHfKzyrZV2Lrf/C8OOd7vRLAEAAAA=",
+          "wm": true,
+          "orig": "originals/pmwjh6geribpx3/mwjh6tb8k9dwv.webp"
+        }
+      ],
+      "wireframes": [],
+      "tags": [
+        "firearm"
+      ]
     },
     {
       "id": "p7",
