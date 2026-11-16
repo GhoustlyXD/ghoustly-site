@@ -3,7 +3,7 @@ name: Deploy site
 on:
   push:
     branches: [main]
-    paths-ignore: ['worker/**', 'README.md']
+    paths-ignore: ['worker/**', 'test/**', 'README.md']
   workflow_dispatch:
 
 permissions:
