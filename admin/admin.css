@@ -1,6 +1,6 @@
 :root {
-  --bg: #121416; --bg-2: #0c0e0f; --card: #1b1f22; --card-2: #16191b; --line: #272d31; --line-2: #2f363a;
-  --text: #e8ecec; --muted: #9aa5a6; --accent: #2ec4b6; --on-accent: #06201d; --danger: #fca5a5; --warn: #f59e0b;
+  --bg: #09090c; --bg-2: #050507; --card: #131318; --card-2: #0f0f13; --line: #22222b; --line-2: #2d2d38;
+  --text: #ececf3; --muted: #9d9db0; --accent: #7d6bff; --on-accent: #ffffff; --danger: #fca5a5; --warn: #f59e0b;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -15,7 +15,7 @@ h1, h2, h3, p { margin: 0; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .btn { min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--line-2); background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; color: var(--text); white-space: nowrap; }
-.btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 700; }
+.btn.primary { background: linear-gradient(100deg, #4f74ff, #8a4dff); color: var(--on-accent); border-color: var(--accent); font-weight: 700; }
 .btn.danger { color: var(--danger); border-color: #7f2d2d; }
 .btn.small { min-height: 36px; padding: 0 12px; font-size: 13px; }
 .btn:disabled { opacity: 0.5; cursor: default; }

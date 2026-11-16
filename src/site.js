@@ -40,7 +40,7 @@ function initImages() {
 
 function initNewBadges() {
   const now = Date.now();
-  $$('.tile[data-created]').forEach((t) => {
+  $$('.tile[data-recent][data-created]').forEach((t) => {
     const d = Date.parse(t.dataset.created);
     if (d && now - d < NEW_DAYS * 864e5) { const b = $('.chip.new', t); if (b) b.hidden = false; }
   });
