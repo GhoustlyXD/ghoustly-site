@@ -1,0 +1,49 @@
+{
+  "site": {
+    "name": "GHOUSTLY 3D",
+    "role": "3D Artist",
+    "tagline": "Weapons, Characters & Buildings. Game-ready low & mid-poly assets.",
+    "credentials": "M3 Certified (RSC) · Advanced Modeller (RoDevs) · Notable Developer",
+    "slotsFilled": 2,
+    "slotsTotal": 5,
+    "discordUrl": "https://discord.gg/hXsZU82pxU",
+    "twitterUrl": "https://x.com/Ghoustly3D",
+    "artstationUrl": "https://www.artstation.com/ghoustlymodeler6",
+    "contactText": "DM me if you're interested — I'll be waiting!",
+    "wipHeading": "Working right now on",
+    "timezone": "Asia/Krasnoyarsk",
+    "timezoneLabel": "Russia",
+    "analyticsToken": ""
+  },
+  "categories": [
+    { "id": "weapon", "label": "Weapons", "single": "Weapon" },
+    { "id": "character", "label": "Characters", "single": "Character" },
+    { "id": "ugc", "label": "UGC", "single": "UGC" },
+    { "id": "building", "label": "Buildings", "single": "Building" }
+  ],
+  "projects": [
+    { "id": "p1", "slug": "sample-weapon-set", "title": "Sample Weapon Set", "category": "weapon", "section": "main", "featured": true, "watermark": true, "year": "2026", "madeFor": "", "tris": "2.4k", "textures": "1K PBR", "description": "Placeholder project — replace it from the admin panel.", "createdAt": "2026-11-16T00:00:00Z",
+      "images": [ { "src": "images/placeholders/weapon-1.svg", "thumb": "images/placeholders/weapon-1.svg" }, { "src": "images/placeholders/weapon-2.svg", "thumb": "images/placeholders/weapon-2.svg" }, { "src": "images/placeholders/weapon-3.svg", "thumb": "images/placeholders/weapon-3.svg" } ],
+      "wireframes": [ { "src": "images/placeholders/wire-1.svg", "thumb": "images/placeholders/wire-1.svg" } ] },
+    { "id": "p2", "slug": "sample-sword", "title": "Sample Sword", "category": "weapon", "section": "main", "featured": false, "watermark": true, "year": "2025", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-10-01T00:00:00Z",
+      "images": [ { "src": "images/placeholders/weapon-2.svg", "thumb": "images/placeholders/weapon-2.svg" }, { "src": "images/placeholders/weapon-1.svg", "thumb": "images/placeholders/weapon-1.svg" } ], "wireframes": [] },
+    { "id": "p3", "slug": "sample-character", "title": "Sample Character", "category": "character", "section": "main", "featured": true, "watermark": false, "year": "2026", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-09-01T00:00:00Z",
+      "images": [ { "src": "images/placeholders/character-1.svg", "thumb": "images/placeholders/character-1.svg" }, { "src": "images/placeholders/character-2.svg", "thumb": "images/placeholders/character-2.svg" } ], "wireframes": [] },
+    { "id": "p4", "slug": "sample-monster", "title": "Sample Monster", "category": "character", "section": "main", "featured": false, "watermark": true, "year": "2025", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-08-01T00:00:00Z",
+      "images": [ { "src": "images/placeholders/character-2.svg", "thumb": "images/placeholders/character-2.svg" }, { "src": "images/placeholders/character-1.svg", "thumb": "images/placeholders/character-1.svg" } ], "wireframes": [] },
+    { "id": "p5", "slug": "sample-ugc-outfit", "title": "Sample UGC Outfit", "category": "ugc", "section": "main", "featured": false, "watermark": true, "year": "2026", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2026-11-10T00:00:00Z",
+      "images": [ { "src": "images/placeholders/ugc-1.svg", "thumb": "images/placeholders/ugc-1.svg" }, { "src": "images/placeholders/ugc-2.svg", "thumb": "images/placeholders/ugc-2.svg" } ], "wireframes": [] },
+    { "id": "p6", "slug": "sample-building", "title": "Sample Building", "category": "building", "section": "main", "featured": true, "watermark": true, "year": "2025", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2025-07-01T00:00:00Z",
+      "images": [ { "src": "images/placeholders/building-1.svg", "thumb": "images/placeholders/building-1.svg" }, { "src": "images/placeholders/building-2.svg", "thumb": "images/placeholders/building-2.svg" } ], "wireframes": [] },
+    { "id": "p7", "slug": "sample-prop", "title": "Sample Prop", "category": "weapon", "section": "more", "featured": false, "watermark": true, "year": "2024", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2024-05-01T00:00:00Z",
+      "images": [ { "src": "images/placeholders/weapon-3.svg", "thumb": "images/placeholders/weapon-3.svg" } ], "wireframes": [] },
+    { "id": "p8", "slug": "sample-accessory", "title": "Sample Accessory", "category": "ugc", "section": "more", "featured": false, "watermark": true, "year": "2024", "madeFor": "", "tris": "", "textures": "", "description": "", "createdAt": "2024-04-01T00:00:00Z",
+      "images": [ { "src": "images/placeholders/ugc-2.svg", "thumb": "images/placeholders/ugc-2.svg" } ], "wireframes": [] }
+  ],
+  "wip": [
+    { "src": "images/placeholders/wip-1.svg", "thumb": "images/placeholders/wip-1.svg" },
+    { "src": "images/placeholders/wip-2.svg", "thumb": "images/placeholders/wip-2.svg" }
+  ],
+  "clients": [],
+  "reviews": []
+}
