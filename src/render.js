@@ -86,7 +86,7 @@ export function head(content, opts) {
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
-${url ? `<meta property="og:url" content="${esc(url)}">` : ''}
+${url ? `<meta property="og:url" content="${esc(url)}">\n<link rel="canonical" href="${esc(url)}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#09090c">
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
