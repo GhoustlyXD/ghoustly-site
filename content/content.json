@@ -1149,6 +1149,42 @@
       ]
     },
     {
+      "id": "pmwjmm9ovvnvsp",
+      "slug": "sebur-btg50",
+      "title": "Sebur BTG50",
+      "category": "weapon",
+      "section": "more",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-16T18:58:12.751Z",
+      "images": [
+        {
+          "src": "images/pmwjmm9ovvnvsp/mwjmo501hbf67.webp",
+          "thumb": "images/pmwjmm9ovvnvsp/mwjmo501hbf67-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRmgCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggegAAAPADAJ0BKhgADgA+0VakS6gko6GwCAEAGglpAAPiudn2Kk0IDWsLwAAA/vShCUlnEzR9zm3qmfGX2zVPFPLmEOP2Qml2iwvNyhKUlk3b1Hd9cLU1Oyo0Kc1/Zu9sfx7WkxdrN5DIKGwT0hZ4vi1VVroA/veayQDxb4AA",
+          "wm": true,
+          "orig": "originals/pmwjmm9ovvnvsp/mwjmo501hbf67.webp"
+        }
+      ],
+      "wireframes": [
+        {
+          "src": "images/pmwjmm9ovvnvsp/mwjmne24ssyr2.webp",
+          "thumb": "images/pmwjmm9ovvnvsp/mwjmne24ssyr2-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRnYCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggiAAAANADAJ0BKhgADgA+0VajS6gkoyGwCAEAGglpAAPhgdlYNy5aRVUAAAD+7OHw6agVBkXh/8/99Zu1F0Q+J8tSirpOvHO/kSIKIgLWhXL94Xq4j8e2e8kJQ7Fu57jcqL50gbo8p1+kFcEQaBcaHhQTmxHDT/GL+YtEyT0FRezBj5bHz/5sOcgAAAA=",
+          "wm": true,
+          "orig": "originals/pmwjmm9ovvnvsp/mwjmne24ssyr2.webp"
+        }
+      ],
+      "tags": [
+        "firearm"
+      ]
+    },
+    {
       "id": "pmwjmj7ek8lcti",
       "slug": "m1911",
       "title": "M1911",
