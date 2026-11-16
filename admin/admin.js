@@ -93,13 +93,67 @@ async function load() {
   content = r.content; contentSha = r.sha; originalsEnabled = !!r.originals;
   savedJson = JSON.stringify(clean(content));
   pending.clear(); pendingOriginals.clear();
+  await offerDraft();
   render();
+}
+
+// ---------- drafts: unpublished changes survive a reload or a closed tab (kept in this browser only) ----------
+const DB_NAME = 'ghoustly-admin';
+function idb(mode, fn) {
+  return new Promise((resolve, reject) => {
+    const open = indexedDB.open(DB_NAME, 1);
+    open.onupgradeneeded = () => open.result.createObjectStore('kv');
+    open.onerror = () => reject(open.error);
+    open.onsuccess = () => {
+      const tx = open.result.transaction('kv', mode);
+      const req = fn(tx.objectStore('kv'));
+      tx.oncomplete = () => { resolve(req?.result); open.result.close(); };
+      tx.onerror = () => { reject(tx.error); open.result.close(); };
+    };
+  });
+}
+let draftTimer = null;
+function scheduleDraftSave() {
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(saveDraft, 800);
+}
+async function saveDraft() {
+  if (!content) return;
+  try {
+    if (!dirty() && !pending.size) { await idb('readwrite', (st) => st.delete('draft')); return; }
+    const draft = {
+      time: Date.now(), baseSha: contentSha, content: JSON.parse(JSON.stringify(content)),
+      pending: [...pending].map(([path, f]) => [path, f.blob]),
+      originals: [...pendingOriginals],
+    };
+    await idb('readwrite', (st) => st.put(draft, 'draft'));
+  } catch (e) { /* private mode or storage full: drafts are a bonus, never block editing */ }
+}
+async function offerDraft() {
+  let d;
+  try { d = await idb('readonly', (st) => st.get('draft')); } catch (e) { return; }
+  if (!d || JSON.stringify(clean(d.content)) === savedJson) return;
+  const when = new Date(d.time).toLocaleString();
+  const n = d.pending.length;
+  const changedElsewhere = d.baseSha !== contentSha;
+  const msg = `Tienes cambios sin publicar guardados (${when}${n ? `, ${Math.round(n / 2)} imágenes nuevas` : ''}).\n\n¿Quieres recuperarlos?` +
+    (changedElsewhere ? '\n\nOjo: desde entonces se publicó algo desde otro sitio. Si los recuperas y publicas, sustituirás esa versión.' : '') +
+    '\n\nAceptar = recuperar · Cancelar = descartarlos';
+  if (confirm(msg)) {
+    content = d.content;
+    for (const [path, blob] of d.pending) pending.set(path, { blob, url: URL.createObjectURL(blob) });
+    for (const [path, blob] of d.originals) pendingOriginals.set(path, blob);
+    setTimeout(() => toast('Cambios recuperados. Pulsa Publicar cuando quieras.'), 300);
+  } else {
+    try { await idb('readwrite', (st) => st.delete('draft')); } catch (e) {}
+  }
 }
 
 // ---------- shell ----------
 let topEl = null;
 // Refresh only the top bar (status, buttons). Used while saving so the page you are editing is left alone.
 function renderTop() {
+  scheduleDraftSave();
   if (!topEl || !topEl.isConnected) return render();
   const next = buildTop();
   topEl.replaceWith(next); topEl = next;
@@ -107,6 +161,7 @@ function renderTop() {
 function setBusy(msg) { busy = msg; renderTop(); }
 
 function render() {
+  scheduleDraftSave();
   topEl = buildTop();
   const main = h('main');
   ({ works: viewWorks, site: viewSite, wip: viewWip, proof: viewProof, history: viewHistory })[tab](main);
@@ -580,6 +635,7 @@ async function publish() {
     const ids = new Set(snapshot.projects.map((p) => p.id));
     content.projects.forEach((p) => { if (ids.has(p.id)) delete p._new; });
     savedJson = JSON.stringify(snapshot);
+    saveDraft();
     setBusy('');
     if (queued && dirty()) { queued = false; toast('Publicado. Ahora publico lo que tenías en cola…'); return waitAndPublish(); }
     queued = false;
