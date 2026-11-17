@@ -47,6 +47,7 @@ export default {
           const r = await gh.raw(env.ORIGINALS_REPO, path);
           return new Response(r.body, { headers: { ...cors, 'content-type': r.headers.get('content-type') || 'application/octet-stream' } });
         }
+        case 'GET /link-preview': return json(await linkPreview(url.searchParams.get('url') || ''), 200, cors);
         case 'GET /history': {
           const list = await gh.req(`/repos/${env.REPO}/commits?path=${CONTENT_PATH}&sha=${env.BRANCH}&per_page=30`);
           return json(list.map((c) => ({ sha: c.sha, message: c.commit.message.split('\n')[0], date: c.commit.author.date })), 200, cors);
@@ -65,6 +66,52 @@ export default {
     }
   },
 };
+
+// ---------- Roblox game / group previews for "Worked with" ----------
+// Accepts links like roblox.com/games/123/Name, roblox.com/groups/123/Name or roblox.com/communities/123/Name.
+// Returns the official name and icon (as base64, so the panel can convert and store it).
+async function linkPreview(raw) {
+  let u;
+  try { u = new URL(raw.trim()); } catch (e) { throw httpError(400, 'Enlace no válido'); }
+  if (!/(^|\.)roblox\.com$/i.test(u.hostname)) throw httpError(400, 'Solo enlaces de roblox.com (juegos o grupos)');
+  const game = u.pathname.match(/\/games\/(\d+)/i);
+  const group = u.pathname.match(/\/(?:groups|communities)\/(\d+)/i);
+  const get = async (api) => {
+    const r = await fetch(api, { headers: { accept: 'application/json', 'user-agent': 'ghoustly-admin' } });
+    if (!r.ok) throw httpError(502, `Roblox respondió ${r.status}`);
+    return r.json();
+  };
+  let name, icon, link, type;
+  if (game) {
+    const { universeId } = await get(`https://apis.roblox.com/universes/v1/places/${game[1]}/universe`);
+    if (!universeId) throw httpError(404, 'No encontré ese juego');
+    const info = await get(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
+    name = info.data?.[0]?.name;
+    const th = await get(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${universeId}&size=256x256&format=Png&isCircular=false`);
+    icon = th.data?.[0]?.imageUrl;
+    link = `https://www.roblox.com/games/${game[1]}`; type = 'game';
+  } else if (group) {
+    const info = await get(`https://groups.roblox.com/v1/groups/${group[1]}`);
+    name = info.name;
+    const th = await get(`https://thumbnails.roblox.com/v1/groups/icons?groupIds=${group[1]}&size=150x150&format=Png&isCircular=false`);
+    icon = th.data?.[0]?.imageUrl;
+    link = `https://www.roblox.com/communities/${group[1]}`; type = 'group';
+  } else {
+    throw httpError(400, 'Pega el enlace completo del juego o grupo (roblox.com/games/… o roblox.com/communities/…)');
+  }
+  let iconData = null;
+  if (icon && /^https:\/\/[a-z0-9.-]*rbxcdn\.com\//i.test(icon)) {
+    const r = await fetch(icon);
+    if (r.ok) {
+      const bytes = new Uint8Array(await r.arrayBuffer());
+      let bin = '';
+      for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+      iconData = `data:${r.headers.get('content-type') || 'image/png'};base64,${btoa(bin)}`;
+    }
+  }
+  return { type, name: name || '', url: link, iconData };
+}
+function httpError(status, message) { const e = new Error(message); e.status = status; return e; }
 
 // ---------- auth ----------
 async function login(req, env, cors) {

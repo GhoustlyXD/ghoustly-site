@@ -525,14 +525,50 @@ function viewProof(main) {
     const order = [...el.children].map((c) => arr[+c.dataset.i]); arr.splice(0, arr.length, ...order); redraw();
   } });
 
+  // Worked with: each entry is { name, url, icon }. Older entries were plain text: convert them.
+  content.clients = content.clients.map((c) => (typeof c === 'string' ? (/^https?:\/\//i.test(c.trim()) ? { name: '', url: c.trim() } : { name: c, url: '' }) : c));
   const clients = h('div', { class: 'list' });
+  const fetchPreview = async (c, btn) => {
+    if (!c.url) return toast('Pega primero el enlace del juego o grupo.');
+    if (btn) { btn.disabled = true; btn.textContent = 'Buscando…'; }
+    try {
+      const r = await api('/link-preview?url=' + encodeURIComponent(c.url));
+      c.url = r.url; if (r.name) c.name = r.name;
+      if (r.iconData) {
+        const blob = await (await fetch(r.iconData)).blob();
+        c.icon = await storeIcon(blob);
+      }
+      drawClients(); renderTop();
+    } catch (e) {
+      toast(e.message === 'Not found' ? 'Tu Worker de Cloudflare necesita la versión nueva del código (mira el README).' : e.message, 7000);
+      if (btn) { btn.disabled = false; btn.textContent = 'Cargar icono y nombre'; }
+    }
+  };
   const drawClients = () => {
     clients.replaceChildren(...content.clients.map((c, i) => h('div', { class: 'li', 'data-i': i },
       h('span', { class: 'grip', 'aria-hidden': 'true' }, '⠿'),
-      h('div', { class: 'grow' }, h('input', { class: 'fld', value: c, 'aria-label': 'Cliente ' + (i + 1), oninput: (e) => (content.clients[i] = e.target.value) })),
-      h('button', { class: 'btn small danger', type: 'button', onclick: () => { content.clients.splice(i, 1); drawClients(); } }, 'Quitar'))));
+      c.icon ? h('img', { class: 'client-ic', src: imgUrl(c.icon), alt: '' }) : h('span', { class: 'client-ic empty', 'aria-hidden': 'true' }),
+      h('div', { class: 'grow' },
+        h('input', { class: 'fld', value: c.url || '', placeholder: 'Enlace del juego o grupo de Roblox (opcional)', 'aria-label': 'Enlace ' + (i + 1), oninput: (e) => (c.url = e.target.value.trim()) }),
+        h('input', { class: 'fld', value: c.name || '', placeholder: 'Nombre que se mostrará', 'aria-label': 'Nombre ' + (i + 1), oninput: (e) => (c.name = e.target.value) }),
+        h('div', { class: 'row' },
+          h('button', { class: 'btn small', type: 'button', onclick: (e) => fetchPreview(c, e.currentTarget) }, 'Cargar icono y nombre'),
+          h('label', { class: 'btn small' }, 'Subir icono', h('input', { type: 'file', accept: 'image/*', hidden: true, onchange: async (e) => {
+            const f = e.target.files[0]; if (!f) return;
+            c.icon = await storeIcon(f); drawClients(); renderTop();
+          } })),
+          c.icon ? h('button', { class: 'btn small', type: 'button', onclick: () => { delete c.icon; drawClients(); renderTop(); } }, 'Quitar icono') : null)),
+      h('button', { class: 'btn small danger', type: 'button', onclick: () => { content.clients.splice(i, 1); drawClients(); renderTop(); } }, 'Quitar'))));
     sortList(clients, content.clients, drawClients);
   };
+  const addInput = h('input', { class: 'fld', placeholder: 'Pega aquí el enlace de un juego o grupo de Roblox y pulsa Añadir', 'aria-label': 'Enlace nuevo' });
+  const addClient = async (e) => {
+    const url = addInput.value.trim();
+    const c = { name: url && !/^https?:/i.test(url) ? url : '', url: /^https?:/i.test(url) ? url : '' };
+    content.clients.push(c); addInput.value = ''; drawClients();
+    if (c.url) await fetchPreview(c, null);
+  };
+  addInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addClient(); } });
   const reviews = h('div', { class: 'list' });
   const drawReviews = () => {
     reviews.replaceChildren(...content.reviews.map((r, i) => h('div', { class: 'li', 'data-i': i },
@@ -545,10 +581,25 @@ function viewProof(main) {
   };
   drawClients(); drawReviews();
   main.append(
-    h('section', { class: 'panel' }, h('h2', {}, 'Worked with'), h('p', { class: 'hint' }, 'Juegos, grupos o estudios con los que has trabajado. Solo datos reales. Vacío = no aparece.'), clients,
-      h('button', { class: 'btn', type: 'button', onclick: () => { content.clients.push(''); drawClients(); } }, '+ Añadir')),
+    h('section', { class: 'panel' }, h('h2', {}, 'Worked with'),
+      h('p', { class: 'hint' }, 'Pega el enlace de un juego o grupo de Roblox: el panel trae su icono y su nombre. También puedes escribir solo un nombre (un estudio, por ejemplo) y subir tú el icono. Solo datos reales. Vacío = no aparece.'),
+      h('div', { class: 'row' }, h('div', { style: { flex: '1 1 260px' } }, addInput), h('button', { class: 'btn primary', type: 'button', onclick: addClient }, 'Añadir')),
+      clients),
     h('section', { class: 'panel' }, h('h2', {}, 'Reseñas'), h('p', { class: 'hint' }, 'Se muestran una a una con flechas. Vacío = no aparece.'), reviews,
       h('button', { class: 'btn', type: 'button', onclick: () => { content.reviews.push({ text: '', who: '' }); drawReviews(); } }, '+ Añadir reseña')));
+}
+
+async function storeIcon(blob) {
+  const bmp = await createImageBitmap(blob);
+  const size = 128;
+  const c = canvas(size, size);
+  const ctx = c.getContext('2d');
+  const sc = Math.max(size / bmp.width, size / bmp.height);
+  ctx.drawImage(bmp, (size - bmp.width * sc) / 2, (size - bmp.height * sc) / 2, bmp.width * sc, bmp.height * sc);
+  const out = await toBlob(c, 0.9);
+  const path = `images/clients/${uid()}.webp`;
+  pending.set(path, { blob: out, url: URL.createObjectURL(out) });
+  return path;
 }
 
 // ---------- History ----------
@@ -589,6 +640,7 @@ function usedPaths(c) {
   const add = (im) => { if (im) { set.add(im.src); if (im.thumb) set.add(im.thumb); if (im.orig) set.add(im.orig); } };
   c.projects.forEach((p) => { (p.images || []).forEach(add); (p.wireframes || []).forEach(add); });
   (c.wip || []).forEach(add);
+  (c.clients || []).forEach((x) => { if (x && x.icon) set.add(x.icon); });
   return set;
 }
 

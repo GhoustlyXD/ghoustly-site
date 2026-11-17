@@ -104,3 +104,6 @@ dialog.editor::backdrop { background: rgba(0,0,0,.65); }
 .tagrow:empty { display: none; }
 .tagchip { min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line-2); background: transparent; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 .tagchip.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.client-ic { width: 48px; height: 48px; border-radius: 10px; flex: none; object-fit: cover; background: var(--card); border: 1px solid var(--line); }
+.client-ic.empty { display: inline-block; }
+label.btn { cursor: pointer; }

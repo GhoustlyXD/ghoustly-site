@@ -76,7 +76,23 @@ async function fakeGitHub(url, init = {}) {
   return jres({ message: 'fake: unhandled ' + method + ' ' + rest }, 500);
 }
 const realFetch = globalThis.fetch;
-globalThis.fetch = (url, init) => (String(url).startsWith('https://api.github.com') ? fakeGitHub(String(url), init) : realFetch(url, init));
+// fake Roblox APIs for the "Worked with" previews
+const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP8z8DAwMDAxMDAwMDAAAANHQEDasKb6QAAAABJRU5ErkJggg==', 'base64');
+function fakeRoblox(url) {
+  const u = new URL(url);
+  if (u.hostname === 'apis.roblox.com') return jres({ universeId: 999 });
+  if (u.hostname === 'games.roblox.com') return jres({ data: [{ name: 'Fake Tycoon Game' }] });
+  if (u.hostname === 'groups.roblox.com') return jres({ name: 'Fake Studio Group' });
+  if (u.hostname === 'thumbnails.roblox.com') return jres({ data: [{ imageUrl: 'https://tr.rbxcdn.com/fake/icon.png' }] });
+  if (u.hostname.endsWith('rbxcdn.com')) return new Response(PNG, { headers: { 'content-type': 'image/png' } });
+  return jres({}, 404);
+}
+globalThis.fetch = (url, init) => {
+  const s = String(url);
+  if (s.startsWith('https://api.github.com')) return fakeGitHub(s, init);
+  if (/^https:\/\/([a-z0-9.-]+\.)?(roblox\.com|rbxcdn\.com)\//.test(s)) return Promise.resolve(fakeRoblox(s));
+  return realFetch(url, init);
+};
 
 const env = { ADMIN_PASSWORD: 'test', TOKEN_SECRET: 'dev-secret-123', GITHUB_TOKEN: 'x', REPO: 'GhoustlyXD/ghoustly-site', BRANCH: 'main', ORIGINALS_REPO: 'GhoustlyXD/ghoustly-originals', ALLOWED_ORIGINS: SITE };
 

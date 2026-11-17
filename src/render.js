@@ -149,6 +149,15 @@ ${p.isNew ? '<span class="chip new mono">NEW</span>' : ''}
 </a>`;
 }
 
+// One "Worked with" entry: icon + name, linked to the game or group when there is a link.
+function clientHtml(base, c) {
+  const inner = `${c.icon ? `<img src="${esc(asset(base, c.icon))}" alt="" width="40" height="40" loading="lazy">` : ''}<span>${esc(c.name || '')}</span>`;
+  const href = safeUrl(c.url);
+  return href !== '#'
+    ? `<a class="client" href="${esc(href)}" target="_blank" rel="noopener">${inner}</a>`
+    : `<span class="client">${inner}</span>`;
+}
+
 export function homeBody(content, base) {
   const s = content.site;
   const main = orderedProjects(content, 'main');
@@ -175,12 +184,12 @@ ${featured.length > 1 ? `<div class="dots">${featured.map((p, i) => `<button typ
 </section>`
     : '';
 
-  const reviews = content.reviews || [];
-  const clients = content.clients || [];
+  const reviews = (content.reviews || []).filter((r) => r && r.text);
+  const clients = (content.clients || []).map((c) => (typeof c === 'string' ? { name: c } : c)).filter((c) => c && (c.name || c.icon));
   const proofHtml =
     clients.length || reviews.length
       ? `<section class="wrap proof line">
-${clients.length ? `<div class="clients"><span class="mono muted up">Worked with</span>${clients.map((c) => `<span class="client">${esc(c)}</span>`).join('')}</div>` : ''}
+${clients.length ? `<div class="clients"><span class="mono muted up">Worked with</span>${clients.map((c) => clientHtml(base, c)).join('')}</div>` : ''}
 ${
   reviews.length
     ? `<div class="reviews" data-reviews>

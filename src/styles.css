@@ -107,7 +107,9 @@ svg.ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-wid
 /* Proof */
 .proof { display: flex; flex-direction: column; gap: 18px; padding-bottom: 40px; }
 .clients { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 30px; }
-.client { font-size: 18px; font-weight: 600; color: var(--muted); }
+.client { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 17px; font-weight: 600; color: var(--muted); text-decoration: none; }
+a.client:hover { color: var(--text); }
+.client img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; border: 1px solid var(--line); background: var(--card); }
 .reviews { display: flex; align-items: center; gap: 12px; }
 .review-box { flex: 1; min-width: 0; touch-action: pan-y; }
 .review { display: none; margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
