@@ -1461,6 +1461,27 @@
       "lqip": "data:image/webp;base64,UklGRmwCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggfgAAABAEAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglnAAPjYhBqvI4ATfrf+zwAAP73fYkugbveJ8LLvUgsV6N/TQVbsMHN9gQ33/MYdceWTB1dWsmrz6PUHB5/gGsaKIeZoqBEMDQBbtpDD+Au4NJBdpQsZQYCrdCX+2Vv08RccY0AAA=="
     }
   ],
-  "clients": [],
+  "clients": [
+    {
+      "name": "Creepypasta Unity",
+      "url": "https://www.roblox.com/communities/35089839",
+      "icon": "images/clients/mwk8wfesjrzmj.webp"
+    },
+    {
+      "name": "attackbaver's random stuff",
+      "url": "https://www.roblox.com/communities/35275123",
+      "icon": "images/clients/mwk8tf6e8jh81.webp"
+    },
+    {
+      "name": "Foxy from FNAF Doom",
+      "url": "https://www.roblox.com/communities/344372610",
+      "icon": "images/clients/mwk8upbmm0p26.webp"
+    },
+    {
+      "name": "Kibrix Trends",
+      "url": "https://www.roblox.com/communities/34254442",
+      "icon": "images/clients/mwk8v2faekli6.webp"
+    }
+  ],
   "reviews": []
 }
