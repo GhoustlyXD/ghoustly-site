@@ -39,73 +39,6 @@
   ],
   "projects": [
     {
-      "id": "pmwm2402hbfxav",
-      "slug": "desert-eagle",
-      "title": "Desert Eagle",
-      "category": "weapon",
-      "section": "main",
-      "featured": false,
-      "watermark": true,
-      "year": "2026",
-      "madeFor": "",
-      "tris": "",
-      "textures": "",
-      "description": "",
-      "createdAt": "2026-11-18T11:47:26.681Z",
-      "images": [
-        {
-          "src": "images/pmwm2402hbfxav/mwm24917mhpb0.webp",
-          "thumb": "images/pmwm2402hbfxav/mwm24917mhpb0-thumb.webp",
-          "lqip": "data:image/webp;base64,UklGRoQCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgglgAAALADAJ0BKhgADgAumWi0WiKoKCgIAJhLSAAfCeEgvQ7ghAW8PJgAAP7mmZNuhEg+k+PXUE9p6jj04C1wTEh0kKFSYD0gzwfv2FLyaWJ0M6jYrSvNTWJtnYzb68rykRvEXUul3/WxZdd5rObyM5WYI7EmdgHOmRbPtLsTH4P1wvT/cFeL67+AC89/O/zE9LuKz+kaEoSAAA==",
-          "wm": true,
-          "orig": "originals/pmwm2402hbfxav/mwm24917mhpb0.webp"
-        }
-      ],
-      "wireframes": [
-        {
-          "src": "images/pmwm2402hbfxav/mwm24b2k3z372.webp",
-          "thumb": "images/pmwm2402hbfxav/mwm24b2k3z372-thumb.webp",
-          "lqip": "data:image/webp;base64,UklGRn4CAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggkAAAABAEAJ0BKhgADgA+0VamS6gko6GwCAEAGglpAAPh5mYQUeDmhd9CyMgAAP4L9i92/oZN77+bDxvuRoM6ZC14LEsWHp/0BxBMUI/DxwT58ObByVn3lN9ef+eexZR/5BoNvgIdiYiVaksLU2QEGAkLHwu+EpSmpPlAtoKeVjyw2023D36KvJJSeTPKy2oCQAAAAA==",
-          "wm": true,
-          "orig": "originals/pmwm2402hbfxav/mwm24b2k3z372.webp"
-        }
-      ],
-      "tags": [
-        "firearm"
-      ],
-      "isNew": true
-    },
-    {
-      "id": "pmwjmoyis4jb1v",
-      "slug": "scp-173-2",
-      "title": "SCP 173-2",
-      "category": "character",
-      "section": "more",
-      "featured": false,
-      "watermark": true,
-      "year": "2026",
-      "madeFor": "",
-      "tris": "",
-      "textures": "",
-      "description": "",
-      "createdAt": "2026-11-16T19:00:18.244Z",
-      "images": [
-        {
-          "src": "images/pmwjmoyis4jb1v/mwjmp7b390riz.webp",
-          "thumb": "images/pmwjmoyis4jb1v/mwjmp7b390riz-thumb.webp",
-          "lqip": "data:image/webp;base64,UklGRtYCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgg6AAAALAFAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglpAAzlHA3ejnm0VAN0r/WYYGqcqhizZafs4kcU8AD+9J7mwgdx8Plohr43px6bn/2IO16GHieFJg6/rFpDU/MYi0Sl8qODm8ateZ2mAkS7t3GnK3V7Q+aMmU7bZrfM1pGkrwVi6Jl/b3cOeoL9DWNc39uHvLhILHuccIB5U4L0cJkG9S8fT5UVGku7wslb2P7IPy1ekd8T/lj/weOTq7ff+xd2MkmVAT+8evbYfjn/FQXtxV2siR4C4EWU1wdYwY+7KR/f/tNSNMOkMfoAAAA=",
-          "wm": true,
-          "orig": "originals/pmwjmoyis4jb1v/mwjmp7b390riz.webp"
-        }
-      ],
-      "wireframes": [],
-      "tags": [
-        "monster",
-        "humanoid"
-      ],
-      "isNew": true
-    },
-    {
       "id": "pmwjfq0ltxbk1b",
       "slug": "zorius-the-heavy-weapon",
       "title": "Zorius - The Heavy Weapon",
@@ -366,6 +299,43 @@
       "tags": [
         "firearm"
       ]
+    },
+    {
+      "id": "pmwm2402hbfxav",
+      "slug": "desert-eagle",
+      "title": "Desert Eagle",
+      "category": "weapon",
+      "section": "main",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-18T11:47:26.681Z",
+      "images": [
+        {
+          "src": "images/pmwm2402hbfxav/mwm24917mhpb0.webp",
+          "thumb": "images/pmwm2402hbfxav/mwm24917mhpb0-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRoQCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgglgAAALADAJ0BKhgADgAumWi0WiKoKCgIAJhLSAAfCeEgvQ7ghAW8PJgAAP7mmZNuhEg+k+PXUE9p6jj04C1wTEh0kKFSYD0gzwfv2FLyaWJ0M6jYrSvNTWJtnYzb68rykRvEXUul3/WxZdd5rObyM5WYI7EmdgHOmRbPtLsTH4P1wvT/cFeL67+AC89/O/zE9LuKz+kaEoSAAA==",
+          "wm": true,
+          "orig": "originals/pmwm2402hbfxav/mwm24917mhpb0.webp"
+        }
+      ],
+      "wireframes": [
+        {
+          "src": "images/pmwm2402hbfxav/mwm24b2k3z372.webp",
+          "thumb": "images/pmwm2402hbfxav/mwm24b2k3z372-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRn4CAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggkAAAABAEAJ0BKhgADgA+0VamS6gko6GwCAEAGglpAAPh5mYQUeDmhd9CyMgAAP4L9i92/oZN77+bDxvuRoM6ZC14LEsWHp/0BxBMUI/DxwT58ObByVn3lN9ef+eexZR/5BoNvgIdiYiVaksLU2QEGAkLHwu+EpSmpPlAtoKeVjyw2023D36KvJJSeTPKy2oCQAAAAA==",
+          "wm": true,
+          "orig": "originals/pmwm2402hbfxav/mwm24b2k3z372.webp"
+        }
+      ],
+      "tags": [
+        "firearm"
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjh3awnra3zh",
@@ -1108,6 +1078,36 @@
       "tags": [
         "building"
       ]
+    },
+    {
+      "id": "pmwjmoyis4jb1v",
+      "slug": "scp-173-2",
+      "title": "SCP 173-2",
+      "category": "character",
+      "section": "more",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-16T19:00:18.244Z",
+      "images": [
+        {
+          "src": "images/pmwjmoyis4jb1v/mwjmp7b390riz.webp",
+          "thumb": "images/pmwjmoyis4jb1v/mwjmp7b390riz-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRtYCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgg6AAAALAFAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglpAAzlHA3ejnm0VAN0r/WYYGqcqhizZafs4kcU8AD+9J7mwgdx8Plohr43px6bn/2IO16GHieFJg6/rFpDU/MYi0Sl8qODm8ateZ2mAkS7t3GnK3V7Q+aMmU7bZrfM1pGkrwVi6Jl/b3cOeoL9DWNc39uHvLhILHuccIB5U4L0cJkG9S8fT5UVGku7wslb2P7IPy1ekd8T/lj/weOTq7ff+xd2MkmVAT+8evbYfjn/FQXtxV2siR4C4EWU1wdYwY+7KR/f/tNSNMOkMfoAAAA=",
+          "wm": true,
+          "orig": "originals/pmwjmoyis4jb1v/mwjmp7b390riz.webp"
+        }
+      ],
+      "wireframes": [],
+      "tags": [
+        "monster",
+        "humanoid"
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjmibow0z7uv",
