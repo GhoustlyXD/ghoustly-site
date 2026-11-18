@@ -310,7 +310,7 @@
       "watermark": true,
       "year": "2026",
       "madeFor": "",
-      "tris": "",
+      "tris": "2.7K",
       "textures": "",
       "description": "",
       "createdAt": "2026-11-18T11:47:26.681Z",
@@ -1340,6 +1340,35 @@
         "melee",
         "firearm"
       ]
+    },
+    {
+      "id": "pmwm99yu3pj3fi",
+      "slug": "basic-weapon-set-1",
+      "title": "Basic Weapon Set 1",
+      "category": "weapon",
+      "section": "more",
+      "featured": false,
+      "watermark": true,
+      "year": "2026",
+      "madeFor": "",
+      "tris": "",
+      "textures": "",
+      "description": "",
+      "createdAt": "2026-11-18T15:08:02.331Z",
+      "images": [
+        {
+          "src": "images/pmwm99yu3pj3fi/mwm99zuj25zpb.webp",
+          "thumb": "images/pmwm99yu3pj3fi/mwm99zuj25zpb-thumb.webp",
+          "lqip": "data:image/webp;base64,UklGRrgCAABXRUJQVlA4WAoAAAAgAAAAFwAADQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggygAAALAEAJ0BKhgADgA+0VSjS6gkoyGwCAEAGglnABOJTYgvM/QAFX57j9pHMd0YAAAA/vS3n7dbedYqdmATs2ef867eDRkZ8TCgsdF2J3Ji8OH1oQhWtwVQuT3HC9QOpYTcMlL6d/UaefouDtPNYWktJv0hHZR6Fg2VKBu1G9izolFsZOldRd8wpYEc+c/P+c+iHPB7Yp/HoHbTY/3hoYH5lFshdTWAlZ7Xj2+DlHgN6Zxz5dT+edH/lJW3UC3a54AV95QobIwSlxBAAAA=",
+          "wm": true,
+          "orig": "originals/pmwm99yu3pj3fi/mwm99zuj25zpb.webp"
+        }
+      ],
+      "wireframes": [],
+      "tags": [
+        "melee"
+      ],
+      "isNew": true
     },
     {
       "id": "pmwjhjshw6owfm",
