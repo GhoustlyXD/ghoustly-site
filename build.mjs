@@ -29,7 +29,7 @@ await writeFile(
       base,
       title: `${s.name} — ${s.role || '3D Artist'}`,
       description: s.tagline,
-      image: firstFeatured ? abs(firstFeatured.images[0].src) : '',
+      image: s.shareImage?.[0] ? abs(s.shareImage[0].src) : firstFeatured ? abs(firstFeatured.images[0].src) : '',
       url: siteUrl ? siteUrl + base : '',
     }),
     homeBody(content, base)

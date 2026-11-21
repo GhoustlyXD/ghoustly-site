@@ -497,6 +497,9 @@ function viewSite(main) {
   const f = (label, key, attrs = {}) => h('label', { class: 'lbl' + (attrs.wide ? ' span2' : '') }, label,
     h(attrs.area ? 'textarea' : 'input', { class: 'fld', type: attrs.type || 'text', value: s[key] ?? '', oninput: (e) => { s[key] = attrs.type === 'number' ? Number(e.target.value) : e.target.value; } }));
   main.append(
+    h('section', { class: 'panel' }, h('h2', {}, 'Imagen al compartir el enlace'),
+      h('p', { class: 'hint' }, 'La que sale en Discord, X, WhatsApp… al pegar ghoustly3d.com. Ideal 1920×1080 (16:9). Solo se usa la primera. Los enlaces de cada proyecto siguen mostrando su propio render. Discord guarda las vistas previas un tiempo: para ver el cambio al momento, pega el enlace con ?v=2 al final.'),
+      imageList(s, 'shareImage', false)),
     h('section', { class: 'panel' }, h('h2', {}, 'Encargos'),
       h('div', { class: 'grid2' }, f('Plazas ocupadas', 'slotsFilled', { type: 'number' }), f('Plazas totales', 'slotsTotal', { type: 'number' })),
       h('p', { class: 'hint' }, 'Cuando las ocupadas llegan al total, la web muestra «Commissions closed» automáticamente.')),
@@ -641,6 +644,7 @@ function usedPaths(c) {
   c.projects.forEach((p) => { (p.images || []).forEach(add); (p.wireframes || []).forEach(add); });
   (c.wip || []).forEach(add);
   (c.clients || []).forEach((x) => { if (x && x.icon) set.add(x.icon); });
+  (c.site?.shareImage || []).forEach(add);
   return set;
 }
 
