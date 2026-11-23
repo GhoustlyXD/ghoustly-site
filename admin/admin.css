@@ -107,3 +107,6 @@ dialog.editor::backdrop { background: rgba(0,0,0,.65); }
 .client-ic { width: 48px; height: 48px; border-radius: 10px; flex: none; object-fit: cover; background: var(--card); border: 1px solid var(--line); }
 .client-ic.empty { display: inline-block; }
 label.btn { cursor: pointer; }
+.rv-shot { width: 100%; max-width: 420px; aspect-ratio: 5 / 2; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+dialog.crop { width: min(948px, 100vw); }
+.crop-cv { display: block; max-width: 100%; margin: 0 auto; touch-action: none; cursor: move; border-radius: 6px; }

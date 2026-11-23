@@ -158,6 +158,19 @@ function clientHtml(base, c) {
     : `<span class="client">${inner}</span>`;
 }
 
+// One review: a cropped screenshot of the client's message (click to enlarge) or a quote, plus who and an optional project link.
+function reviewHtml(content, base, r, i, n) {
+  const proj = r.project ? content.projects.find((x) => x.slug === r.project) : null;
+  const foot = `<figcaption class="mono muted">${r.who ? `— ${esc(r.who)}` : ''}${n > 1 ? `${r.who ? ' · ' : ''}${i + 1}/${n}` : ''}</figcaption>${proj ? `<a class="rv-link" href="${projectUrl(base, proj)}">See the project →</a>` : ''}`;
+  if (r.shot) {
+    const lq = r.shot.lqip ? ` style="background-image:url('${esc(r.shot.lqip)}')"` : '';
+    return `<figure class="review shot${i === 0 ? ' on' : ''}">
+<button type="button" class="shot-btn" data-zoom-src="${esc(asset(base, r.shot.src))}" aria-label="Open review screenshot${r.who ? ' from ' + esc(r.who) : ''}"><img src="${esc(asset(base, r.shot.src))}" alt="Review${r.who ? ' from ' + esc(r.who) : ''}${r.text ? ': ' + esc(r.text) : ''}" loading="lazy" decoding="async" width="1200" height="480"${lq}></button>
+<div class="rv-foot">${foot}</div></figure>`;
+  }
+  return `<figure class="review${i === 0 ? ' on' : ''}"><blockquote>“${esc(r.text)}”</blockquote><div class="rv-foot">${foot}</div></figure>`;
+}
+
 export function homeBody(content, base) {
   const s = content.site;
   const main = orderedProjects(content, 'main');
@@ -184,7 +197,7 @@ ${featured.length > 1 ? `<div class="dots">${featured.map((p, i) => `<button typ
 </section>`
     : '';
 
-  const reviews = (content.reviews || []).filter((r) => r && r.text);
+  const reviews = (content.reviews || []).filter((r) => r && (r.text || r.shot));
   const clients = (content.clients || []).map((c) => (typeof c === 'string' ? { name: c } : c)).filter((c) => c && (c.name || c.icon));
   const proofHtml =
     clients.length || reviews.length
@@ -195,7 +208,7 @@ ${
     ? `<div class="reviews" data-reviews>
 ${reviews.length > 1 ? `<button type="button" class="iconbtn" data-prev aria-label="Previous review">${icon.left}</button>` : ''}
 <div class="review-box" aria-live="polite">${reviews
-        .map((r, i) => `<figure class="review${i === 0 ? ' on' : ''}"><blockquote>“${esc(r.text)}”</blockquote><figcaption class="mono muted">— ${esc(r.who)}${reviews.length > 1 ? ` · ${i + 1}/${reviews.length}` : ''}</figcaption></figure>`)
+        .map((r, i) => reviewHtml(content, base, r, i, reviews.length))
         .join('')}</div>
 ${reviews.length > 1 ? `<button type="button" class="iconbtn" data-next aria-label="Next review">${icon.right}</button>` : ''}
 </div>`
@@ -223,7 +236,6 @@ ${s.credentials ? `<p class="creds mono muted">${esc(s.credentials)}</p>` : ''}
 <div class="cta"><a class="btn primary" href="${esc(safeUrl(s.discordUrl))}" target="_blank" rel="noopener">Request a commission</a><a class="btn ghost" href="#work">View work</a></div>
 </section>
 ${featuredHtml}
-${proofHtml}
 ${wipHtml}
 <section class="wrap work line" id="work">
 <div class="sec-head"><h2>Selected work</h2><span class="mono muted"><span data-count>${main.length}</span> projects</span></div>
@@ -242,6 +254,7 @@ ${
 </section>`
     : ''
 }
+${proofHtml}
 </main>
 ${siteFooter(content)}
 ${zoomDialog()}`;

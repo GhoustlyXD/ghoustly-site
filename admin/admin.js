@@ -573,13 +573,40 @@ function viewProof(main) {
   };
   addInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addClient(); } });
   const reviews = h('div', { class: 'list' });
+  const addShot = async (r, files) => {
+    const f = files.find((x) => x.type.startsWith('image/'));
+    if (!f) return;
+    const blob = await cropImage(f, 2.5);
+    if (!blob) return;
+    r.shot = await storeShot(blob);
+    drawReviews(); renderTop();
+  };
   const drawReviews = () => {
-    reviews.replaceChildren(...content.reviews.map((r, i) => h('div', { class: 'li', 'data-i': i },
-      h('span', { class: 'grip', 'aria-hidden': 'true' }, '⠿'),
-      h('div', { class: 'grow' },
-        h('textarea', { class: 'fld', value: r.text, placeholder: 'Lo que dijo el cliente (en inglés)', 'aria-label': 'Reseña ' + (i + 1), oninput: (e) => (r.text = e.target.value) }),
-        h('input', { class: 'fld', value: r.who, placeholder: 'Nombre · Juego o grupo', 'aria-label': 'Autor de la reseña ' + (i + 1), oninput: (e) => (r.who = e.target.value) })),
-      h('button', { class: 'btn small danger', type: 'button', onclick: () => { content.reviews.splice(i, 1); drawReviews(); } }, 'Quitar'))));
+    reviews.replaceChildren(...content.reviews.map((r, i) => {
+      const target = { wrap: null, add: (files) => addShot(r, files) };
+      const fileIn = h('input', { type: 'file', accept: 'image/*', hidden: true, onchange: (e) => { addShot(r, [...e.target.files]); e.target.value = ''; } });
+      const projSel = h('select', { class: 'fld', 'aria-label': 'Proyecto de la reseña ' + (i + 1), onchange: (e) => { r.project = e.target.value || undefined; renderTop(); } },
+        h('option', { value: '' }, '— Sin proyecto enlazado —'),
+        ...content.projects.map((x) => h('option', { value: x.slug, selected: x.slug === r.project }, x.title)));
+      const li = h('div', { class: 'li', 'data-i': i },
+        h('span', { class: 'grip', 'aria-hidden': 'true' }, '⠿'),
+        h('div', { class: 'grow' },
+          r.shot
+            ? h('img', { class: 'rv-shot', src: imgUrl(r.shot.thumb || r.shot.src), alt: 'Captura de la reseña ' + (i + 1) })
+            : h('p', { class: 'hint' }, 'Sin captura: se mostrará como texto.'),
+          h('div', { class: 'row' },
+            h('button', { class: 'btn small', type: 'button', onclick: () => fileIn.click() }, r.shot ? 'Cambiar captura' : 'Subir captura'),
+            h('button', { class: 'btn small', type: 'button', onclick: () => { pasteTarget = target; pasteFromClipboard(target.add); } }, 'Pegar captura'),
+            r.shot ? h('button', { class: 'btn small', type: 'button', onclick: () => { delete r.shot; drawReviews(); renderTop(); } }, 'Quitar captura') : null,
+            fileIn),
+          h('textarea', { class: 'fld', value: r.text || '', placeholder: r.shot ? 'Texto de la reseña (opcional, ayuda a Google y a lectores de pantalla)' : 'Lo que dijo el cliente (en inglés)', 'aria-label': 'Texto de la reseña ' + (i + 1), oninput: (e) => (r.text = e.target.value) }),
+          h('input', { class: 'fld', value: r.who || '', placeholder: 'Nombre · Juego o grupo', 'aria-label': 'Autor de la reseña ' + (i + 1), oninput: (e) => (r.who = e.target.value) }),
+          projSel),
+        h('button', { class: 'btn small danger', type: 'button', onclick: () => { content.reviews.splice(i, 1); drawReviews(); renderTop(); } }, 'Quitar'));
+      target.wrap = li;
+      li.addEventListener('pointerdown', () => (pasteTarget = target));
+      return li;
+    }));
     sortList(reviews, content.reviews, drawReviews);
   };
   drawClients(); drawReviews();
@@ -588,8 +615,92 @@ function viewProof(main) {
       h('p', { class: 'hint' }, 'Pega el enlace de un juego o grupo de Roblox: el panel trae su icono y su nombre. También puedes escribir solo un nombre (un estudio, por ejemplo) y subir tú el icono. Solo datos reales. Vacío = no aparece.'),
       h('div', { class: 'row' }, h('div', { style: { flex: '1 1 260px' } }, addInput), h('button', { class: 'btn primary', type: 'button', onclick: addClient }, 'Añadir')),
       clients),
-    h('section', { class: 'panel' }, h('h2', {}, 'Reseñas'), h('p', { class: 'hint' }, 'Se muestran una a una con flechas. Vacío = no aparece.'), reviews,
-      h('button', { class: 'btn', type: 'button', onclick: () => { content.reviews.push({ text: '', who: '' }); drawReviews(); } }, '+ Añadir reseña')));
+    h('section', { class: 'panel' }, h('h2', {}, 'Reseñas'), h('p', { class: 'hint' }, 'Se muestran una a una con flechas, al final de la página. Lo mejor: una captura del mensaje del cliente (con su permiso). Al subirla o pegarla (Ctrl+V tras tocar la reseña) podrás recortarla: todas quedan del mismo tamaño. Puedes enlazar el proyecto que le hiciste.'), reviews,
+      h('button', { class: 'btn', type: 'button', onclick: () => { content.reviews.push({ text: '', who: '' }); drawReviews(); renderTop(); } }, '+ Añadir reseña')));
+}
+
+// Crop tool: a frame with a fixed shape (ratio = width / height) you can move and resize. Resolves to a WebP blob, or null if cancelled.
+function cropImage(file, ratio) {
+  return new Promise(async (resolve) => {
+    let bmp;
+    try { bmp = await createImageBitmap(file); } catch (e) { toast('No se pudo abrir esa imagen.'); return resolve(null); }
+    const W = bmp.width, H = bmp.height;
+    const cv = h('canvas', { class: 'crop-cv', 'aria-label': 'Arrastra el marco para elegir la zona; arrastra la esquina para cambiar su tamaño' });
+    const dlg = h('dialog', { class: 'editor crop', 'aria-label': 'Recortar captura' });
+    const fit = () => Math.min((Math.min(window.innerWidth, 900) - 48) / W, (window.innerHeight * 0.62) / H, 1);
+    let sc = fit();
+    cv.width = Math.round(W * sc); cv.height = Math.round(H * sc);
+    // frame in image pixels
+    let fw = Math.min(W, H * ratio), fh = fw / ratio;
+    let fx = (W - fw) / 2, fy = (H - fh) / 2;
+    const clamp = () => {
+      fw = Math.max(40, Math.min(fw, W, H * ratio)); fh = fw / ratio;
+      fx = Math.max(0, Math.min(fx, W - fw)); fy = Math.max(0, Math.min(fy, H - fh));
+    };
+    const draw = () => {
+      const x = cv.getContext('2d');
+      x.clearRect(0, 0, cv.width, cv.height);
+      x.drawImage(bmp, 0, 0, cv.width, cv.height);
+      x.fillStyle = 'rgba(0,0,0,0.6)';
+      const [rx, ry, rw, rh] = [fx * sc, fy * sc, fw * sc, fh * sc];
+      x.fillRect(0, 0, cv.width, ry); x.fillRect(0, ry + rh, cv.width, cv.height - ry - rh);
+      x.fillRect(0, ry, rx, rh); x.fillRect(rx + rw, ry, cv.width - rx - rw, rh);
+      x.strokeStyle = '#a597ff'; x.lineWidth = 2; x.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
+      x.fillStyle = '#a597ff'; x.fillRect(rx + rw - 14, ry + rh - 14, 14, 14);
+    };
+    let mode = null, start = null;
+    const pos = (e) => { const b = cv.getBoundingClientRect(); return { x: (e.clientX - b.left) * (cv.width / b.width) / sc, y: (e.clientY - b.top) * (cv.height / b.height) / sc }; };
+    cv.addEventListener('pointerdown', (e) => {
+      const p = pos(e);
+      const grab = 28 / sc;
+      if (Math.abs(p.x - (fx + fw)) < grab && Math.abs(p.y - (fy + fh)) < grab) mode = 'resize';
+      else if (p.x > fx && p.x < fx + fw && p.y > fy && p.y < fy + fh) mode = 'move';
+      else { mode = 'move'; fx = p.x - fw / 2; fy = p.y - fh / 2; clamp(); draw(); }
+      start = { p, fx, fy, fw };
+      cv.setPointerCapture(e.pointerId);
+    });
+    cv.addEventListener('pointermove', (e) => {
+      if (!mode) return;
+      const p = pos(e);
+      if (mode === 'move') { fx = start.fx + (p.x - start.p.x); fy = start.fy + (p.y - start.p.y); }
+      else { fw = Math.max(p.x - fx, (p.y - fy) * ratio); }
+      clamp(); draw();
+    });
+    const end = () => { mode = null; };
+    cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+    const zoom = (k) => { const cx = fx + fw / 2, cy = fy + fh / 2; fw *= k; clamp(); fx = cx - fw / 2; fy = cy - fh / 2; clamp(); draw(); };
+    const finish = async (ok) => {
+      dlg.close(); dlg.remove();
+      if (!ok) return resolve(null);
+      const ow = Math.min(1200, Math.round(fw)), oh = Math.round(ow / ratio);
+      const out = canvas(ow, oh);
+      out.getContext('2d').drawImage(bmp, fx, fy, fw, fh, 0, 0, ow, oh);
+      resolve(await toBlob(out, 0.9));
+    };
+    dlg.append(
+      h('div', { class: 'ed-head' }, h('h2', {}, 'Recortar captura'), h('button', { class: 'btn', type: 'button', onclick: () => finish(false) }, 'Cancelar'), h('button', { class: 'btn primary', type: 'button', onclick: () => finish(true) }, 'Recortar')),
+      h('div', { class: 'ed-body' },
+        h('p', { class: 'hint' }, 'Arrastra el marco hasta el mensaje del cliente. Arrastra la esquina (cuadrado morado) o usa − / + para el tamaño. Todas las reseñas quedan con la misma forma.'),
+        h('div', { class: 'row' }, h('button', { class: 'btn small', type: 'button', 'aria-label': 'Marco más pequeño', onclick: () => zoom(0.85) }, '−'), h('button', { class: 'btn small', type: 'button', 'aria-label': 'Marco más grande', onclick: () => zoom(1.18) }, '+')),
+        cv));
+    dlg.addEventListener('cancel', (e) => { e.preventDefault(); finish(false); });
+    document.body.append(dlg);
+    dlg.showModal();
+    draw();
+  });
+}
+
+async function storeShot(blob) {
+  const key = uid();
+  const src = `images/reviews/${key}.webp`, thumb = `images/reviews/${key}-thumb.webp`;
+  const bmp = await createImageBitmap(blob);
+  const t = canvas(600, Math.round(600 * bmp.height / bmp.width));
+  t.getContext('2d').drawImage(bmp, 0, 0, t.width, t.height);
+  const tb = await toBlob(t, 0.85);
+  const lq = canvas(25, 10); lq.getContext('2d').drawImage(bmp, 0, 0, 25, 10);
+  pending.set(src, { blob, url: URL.createObjectURL(blob) });
+  pending.set(thumb, { blob: tb, url: URL.createObjectURL(tb) });
+  return { src, thumb, lqip: lq.toDataURL('image/webp', 0.5) };
 }
 
 async function storeIcon(blob) {
@@ -645,6 +756,7 @@ function usedPaths(c) {
   (c.wip || []).forEach(add);
   (c.clients || []).forEach((x) => { if (x && x.icon) set.add(x.icon); });
   (c.site?.shareImage || []).forEach(add);
+  (c.reviews || []).forEach((r) => r && r.shot && add(r.shot));
   return set;
 }
 
