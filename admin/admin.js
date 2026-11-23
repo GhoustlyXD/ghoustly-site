@@ -585,9 +585,21 @@ function viewProof(main) {
     reviews.replaceChildren(...content.reviews.map((r, i) => {
       const target = { wrap: null, add: (files) => addShot(r, files) };
       const fileIn = h('input', { type: 'file', accept: 'image/*', hidden: true, onchange: (e) => { addShot(r, [...e.target.files]); e.target.value = ''; } });
-      const projSel = h('select', { class: 'fld', 'aria-label': 'Proyecto de la reseña ' + (i + 1), onchange: (e) => { r.project = e.target.value || undefined; renderTop(); } },
-        h('option', { value: '' }, '— Sin proyecto enlazado —'),
-        ...content.projects.map((x) => h('option', { value: x.slug, selected: x.slug === r.project }, x.title)));
+      // linked projects (several allowed); older reviews stored a single 'project'
+      r.projects = [...new Set([...(r.projects || []), ...(r.project ? [r.project] : [])])];
+      delete r.project;
+      const projBox = h('div', { class: 'tags-ed' },
+        h('span', { class: 'lbl' }, 'Proyectos de este cliente (opcional, puedes añadir varios)'),
+        h('div', { class: 'tagrow' }, ...r.projects.map((slug) => {
+          const pr = content.projects.find((x) => x.slug === slug);
+          return h('button', { type: 'button', class: 'tagchip on', 'aria-label': 'Quitar ' + (pr ? pr.title : slug), onclick: () => { r.projects = r.projects.filter((x) => x !== slug); drawReviews(); renderTop(); } }, (pr ? pr.title : slug + ' (ya no existe)') + ' ✕');
+        })),
+        h('select', { class: 'fld', 'aria-label': 'Añadir proyecto a la reseña ' + (i + 1), onchange: (e) => {
+          if (e.target.value && !r.projects.includes(e.target.value)) r.projects.push(e.target.value);
+          drawReviews(); renderTop();
+        } },
+          h('option', { value: '' }, '+ Añadir proyecto…'),
+          ...content.projects.filter((x) => !r.projects.includes(x.slug)).map((x) => h('option', { value: x.slug }, x.title))));
       const li = h('div', { class: 'li', 'data-i': i },
         h('span', { class: 'grip', 'aria-hidden': 'true' }, '⠿'),
         h('div', { class: 'grow' },
@@ -601,7 +613,7 @@ function viewProof(main) {
             fileIn),
           h('textarea', { class: 'fld', value: r.text || '', placeholder: r.shot ? 'Texto de la reseña (opcional, ayuda a Google y a lectores de pantalla)' : 'Lo que dijo el cliente (en inglés)', 'aria-label': 'Texto de la reseña ' + (i + 1), oninput: (e) => (r.text = e.target.value) }),
           h('input', { class: 'fld', value: r.who || '', placeholder: 'Nombre · Juego o grupo', 'aria-label': 'Autor de la reseña ' + (i + 1), oninput: (e) => (r.who = e.target.value) }),
-          projSel),
+          projBox),
         h('button', { class: 'btn small danger', type: 'button', onclick: () => { content.reviews.splice(i, 1); drawReviews(); renderTop(); } }, 'Quitar'));
       target.wrap = li;
       li.addEventListener('pointerdown', () => (pasteTarget = target));
@@ -615,7 +627,7 @@ function viewProof(main) {
       h('p', { class: 'hint' }, 'Pega el enlace de un juego o grupo de Roblox: el panel trae su icono y su nombre. También puedes escribir solo un nombre (un estudio, por ejemplo) y subir tú el icono. Solo datos reales. Vacío = no aparece.'),
       h('div', { class: 'row' }, h('div', { style: { flex: '1 1 260px' } }, addInput), h('button', { class: 'btn primary', type: 'button', onclick: addClient }, 'Añadir')),
       clients),
-    h('section', { class: 'panel' }, h('h2', {}, 'Reseñas'), h('p', { class: 'hint' }, 'Se muestran una a una con flechas, al final de la página. Lo mejor: una captura del mensaje del cliente (con su permiso). Al subirla o pegarla (Ctrl+V tras tocar la reseña) podrás recortarla: todas quedan del mismo tamaño. Puedes enlazar el proyecto que le hiciste.'), reviews,
+    h('section', { class: 'panel' }, h('h2', {}, 'Reseñas'), h('p', { class: 'hint' }, 'Se muestran una a una con flechas, al final de la página. Lo mejor: una captura del mensaje del cliente (con su permiso). Al subirla o pegarla (Ctrl+V tras tocar la reseña) podrás recortarla: todas quedan del mismo tamaño. Puedes enlazar uno o varios proyectos que le hiciste.'), reviews,
       h('button', { class: 'btn', type: 'button', onclick: () => { content.reviews.push({ text: '', who: '' }); drawReviews(); renderTop(); } }, '+ Añadir reseña')));
 }
 

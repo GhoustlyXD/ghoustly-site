@@ -134,16 +134,24 @@ function initFeatured() {
   play();
 }
 
+// Reviews: a row you can scroll sideways (2 visible on desktop, 1 on phones). Arrows move one card.
 function initReviews() {
   const root = $('[data-reviews]');
   if (!root) return;
-  const items = $$('.review', root);
-  if (items.length < 2) return;
-  let i = 0;
-  const go = (k) => { i = (k + items.length) % items.length; items.forEach((r, n) => r.classList.toggle('on', n === i)); };
-  $('[data-prev]', root).addEventListener('click', () => go(i - 1));
-  $('[data-next]', root).addEventListener('click', () => go(i + 1));
-  swipe($('.review-box', root), (dir) => go(i + dir));
+  const track = $('.review-track', root);
+  const prev = $('[data-prev]', root), next = $('[data-next]', root);
+  const step = () => { const c = $('.review', track); return c ? c.getBoundingClientRect().width + 16 : track.clientWidth; };
+  const update = () => {
+    const more = track.scrollWidth > track.clientWidth + 4;
+    prev.hidden = next.hidden = !more;
+    prev.disabled = track.scrollLeft < 4;
+    next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+  };
+  prev.addEventListener('click', () => track.scrollBy({ left: -step() }));
+  next.addEventListener('click', () => track.scrollBy({ left: step() }));
+  track.addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
 }
 
 function swipe(el, cb) {

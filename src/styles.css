@@ -111,17 +111,18 @@ svg.ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-wid
 a.client:hover { color: var(--text); }
 .client img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; border: 1px solid var(--line); background: var(--card); }
 .reviews { display: flex; align-items: center; gap: 12px; }
-.review-box { flex: 1; min-width: 0; touch-action: pan-y; }
-.review { display: none; margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
-.review.on { display: flex; }
+.review-track { flex: 1; min-width: 0; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 16px) / 2); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 2px; }
+.review-track::-webkit-scrollbar { display: none; }
+.review { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; scroll-snap-align: start; min-width: 0; }
+.review.shot { justify-content: flex-start; padding: 10px; }
+.review.shot .rv-foot { padding: 0 6px 4px; }
+.rv-projects { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .review blockquote { margin: 0; font-size: 18px; line-height: 1.5; }
 .rv-foot { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
 .rv-link { color: var(--accent-ink); font-size: 14px; text-decoration: none; }
 .rv-link:hover { text-decoration: underline; }
-.review.shot { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; max-width: 760px; margin: 0 auto; }
 .shot-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 10px; overflow: hidden; }
 .shot-btn img { width: 100%; height: auto; aspect-ratio: 5 / 2; object-fit: cover; background-size: cover; background-position: center; }
-.review.shot .rv-foot { padding: 0 6px 4px; justify-content: space-between; }
 .proof { padding-bottom: 56px; }
 
 /* Sections */
@@ -231,6 +232,14 @@ img { transition: opacity 0.3s; }
   .cap { padding: 10px 14px; }
   .cap .accent { display: none; }
   .stage .nav { display: none; }
+  .review-track { grid-auto-columns: 100%; }
+  .review-track { align-items: start; }
+  .clients { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+  .clients > .mono { grid-column: 1 / -1; }
+  .client { font-size: 14px; gap: 8px; min-height: 40px; min-width: 0; }
+  .client span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .client img { width: 32px; height: 32px; border-radius: 8px; flex: none; }
+  .reviews .iconbtn { display: none; }
   .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; background: var(--bg-2); border-top: 1px solid var(--line); }
   .mbar .btn { min-height: 44px; font-size: 15px; padding: 0 18px; }
   .legal { padding-bottom: 96px; }
@@ -239,3 +248,4 @@ img { transition: opacity 0.3s; }
   * { transition: none !important; scroll-behavior: auto !important; }
 }
 .specs .tag { color: var(--accent-ink); }
+.iconbtn:disabled { opacity: 0.35; cursor: default; }
